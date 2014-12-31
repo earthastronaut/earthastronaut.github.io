@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Dylan Gregersen</title><link href="astrodsg.github.io/" rel="alternate"></link><link href="astrodsg.github.io/feeds/programming.atom.xml" rel="self"></link><id>astrodsg.github.io/</id><updated>2014-12-18T09:28:50-07:00</updated><entry><title>Practical Tools for Matplotlib Colormaps</title><link href="astrodsg.github.io/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html" rel="alternate"></link><updated>2014-12-18T09:28:50-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:,2014-12-18:astrodsg.github.io/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html</id><summary type="html">&lt;h1 id="color-maps-rock"&gt;Color Maps Rock!&lt;/h1&gt;
+&lt;p&gt;I like colorful plots. They may cost &lt;a href="http://hyperboleandahalf.blogspot.com/2010/04/alot-is-better-than-you-at-everything.html"&gt;alot&lt;/a&gt; to publish in a research journal but they’re just so pretty. Quite a few blogs have been written ranting about rainbow colormaps and also about how to choose really good colormaps.&lt;/p&gt;
+&lt;p&gt;This blog is devoted to practical tools I use to help me with colormapping. The actual code is in a github gist of &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Some other useful colormap links&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/users/colormaps.html"&gt;Maplotlib: Choosing Colormaps&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://jakevdp.github.io/blog/2014/10/16/how-bad-is-your-colormap/"&gt;Jake Vanderplas: How bad is your colormap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://colormap.org/"&gt;Custom Colormap Generator&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For general color layouts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://colorbrewer2.org/"&gt;Colorbrewer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://paletton.com/#uid=1000u0kllllaFw0g0qFqFg0w0aF"&gt;Paletton&lt;/a&gt; - a really cool color scheme tool which includes tools to filter by colorblindness&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br/&gt; &lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Below is a really cool colormap image of the Milky Way’s magnetic field &lt;a href="http://public.planck.fr/resultats/249-planck-revele-l-invisible"&gt;captured by the Planck spacecraft&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="/static/img/blog/Plank-Galactic-Magentic-Field-640x640.jpg" alt="Plank Galactic Magnetic Field" style="height: 100%; width: 100%; max-height:500px; "&gt;&lt;/img&gt;&lt;/p&gt;
+&lt;h2 id="colormap-reference"&gt;Colormap Reference&lt;/h2&gt;
+&lt;p&gt;Several colormap references scripts/functions exist; mine is better (haha). In my &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; file I have a function called &lt;code&gt;show_mpl_cmaps&lt;/code&gt;. This uses a lookup table to group together relevant colormaps and a graifier to also show what that colormap looks like in gray scale. I’ve added this to my PYTHONSTARTUP script so when I need a quick reference I can just open a terminal and type &lt;code&gt;show_mpl_cmaps()&lt;/code&gt; to get:&lt;/p&gt;
+&lt;p&gt;&lt;img src="/static/img/blog/mpl_colormaps.png" alt="Matplotlib Colormaps" /&gt;{}&lt;/p&gt;
+&lt;h2 id="truncating-colormaps"&gt;Truncating Colormaps&lt;/h2&gt;
+&lt;p&gt;Search Keywords: Reducing color range, shorten colormap, remove white from colormap&lt;/p&gt;
+&lt;p&gt;I searched for a while and could find something that made a colormap cut off certain colors. For example, taking the &lt;code&gt;plt.cm.rainbow&lt;/code&gt; and reducing it to only blue to orange (I know rainbow is terrible, but humor me). Or you want to use &lt;code&gt;plt.cm.gist_heat&lt;/code&gt; but cut off the white top.&lt;/p&gt;
+&lt;p&gt;I hope if you’re reading this I can save you some time in having already worked out a good way to truncate a colormap. It’s a pretty short function I called &lt;code&gt;truncate_cmap&lt;/code&gt; which I’ve included in &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; gist.&lt;/p&gt;
+&lt;div class="row mpl-cmap"&gt;
+&lt;div class="span6"&gt;
+&lt;div class="cmap-image-header"&gt;
+&lt;p&gt;
+plt.colormap(plt.imshow(cnts,cmap=plt.cm.rainbow))
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;img src="/static/img/blog/cmap_rainbow.svg" alt="Colormap"&gt;&lt;/img&gt;
+&lt;/div&gt;
+&lt;div class="span6"&gt;
+&lt;div class="cmap-image-header"&gt;
+&lt;p&gt;
+plt.colormap(plt.imshow(cnts,cmap=truncate_cmap(plt.cm.rainbow,n_min=40,n_max=210))
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;img src="/static/img/blog/cmap_rainbow_truncated.svg" alt="Truncated Colormap"&gt;&lt;/img&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id="the-monocolormap"&gt;The MonoColorMap&lt;/h2&gt;
+&lt;p&gt;The final tool I’ll leave you with is my own…&lt;code&gt;MonoColormap&lt;/code&gt;. It’s a silly colormap which always returns the same color (hence mono-color). You instantiate it &lt;code&gt;cmap=MonoColormap('r')&lt;/code&gt; and can use any maplotlib color or hex color. I found it useful when I wanted to overplot some image but just have it gray out with some opacity. It’s also located in &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; gist.&lt;/p&gt;
+&lt;h2 id="in-conclusion"&gt;In Conclusion…&lt;/h2&gt;
+&lt;p&gt;Hope this helps you with colormaps. If you didn’t figure out from the post, all the functions and code are publicly available as a github gist at &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt;&lt;/p&gt;
+</summary><category term="plotting"></category><category term="programming"></category><category term="python"></category><category term="matplotlib"></category><category term="colormaps"></category></entry><entry><title>Execfile Lives!</title><link href="astrodsg.github.io/blog/programming/2014/10/execfile-lives.html" rel="alternate"></link><updated>2014-10-10T19:05:59-06:00</updated><author><name>Dylan Gregersen</name></author><id>tag:,2014-10-10:astrodsg.github.io/blog/programming/2014/10/execfile-lives.html</id><summary type="html">&lt;h1 id="execfile-lives"&gt;Execfile Lives!&lt;/h1&gt;
+&lt;p&gt;One of the changes in Python 3 is the deprecation of the builtin function &lt;code&gt;execfile&lt;/code&gt;. This was done with very good intentions and lots of thought. I mostly agree with the choice but here’s why I choose to resurrect…&lt;code&gt;execfile&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="deprecating-execfile-was-good"&gt;Deprecating &lt;code&gt;execfile&lt;/code&gt; was Good&lt;/h2&gt;
+&lt;!-- First off, `reload` was just taken out of the main namespace. You can still access it using `from importlib import reload`. I'm not exactly sure the reason (if you know please comment), but most likely it was to clean up the main python namespace. Modules will automatically be loaded each time you run a script afresh. Most of the time this is enough and requiring a developer to go to the standard library package importlib is nice. 
+ --&gt;
+&lt;p&gt;&lt;code&gt;execfile&lt;/code&gt; takes a file, compiles it into a code object (under the hood), and executes each line of code in turn every time it’s called. At one point, I used this in the way feared by the core Python developers: to include other code. I have two files “file1.py” and “file2.py”; I want to include “file1.py” into “file2.py” to execute the lines; So I do the following:&lt;/p&gt;
+&lt;p&gt;“file2.py”&lt;/p&gt;
+&lt;pre class="sourceCode python"&gt;&lt;code class="sourceCode python"&gt;...
+&lt;span class="dt"&gt;execfile&lt;/span&gt;(&lt;span class="st"&gt;&amp;quot;file1.py&amp;quot;&lt;/span&gt;)
+...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;THIS IS BAD!&lt;/em&gt; Primarily because you have no idea what variables in “file1.py” are now in the current namespace. It makes it hard to read and debug.&lt;/p&gt;
+&lt;p&gt;To include extra code correctly you should locate “file1.py” into your PYTHONPATH and use &lt;code&gt;imp.reload&lt;/code&gt; if you want to interactively update data from the file.&lt;/p&gt;
+&lt;h2 id="deprecating-execfile-was-bad"&gt;Deprecating &lt;code&gt;execfile&lt;/code&gt; was Bad&lt;/h2&gt;
+&lt;p&gt;Entirely for interactively use. For my research, I primarily use Python as an interactive shell to type in the commands I want executed then dynamically investigate the results. To expedite this process, I write scripts that are never meant to be imported but run in the primary namespace and give me dynamic access to its variables.&lt;/p&gt;
+&lt;h2 id="resurrecting-execfile-in-python-3"&gt;Resurrecting &lt;code&gt;execfile&lt;/code&gt; in Python 3&lt;/h2&gt;
+&lt;p&gt;A few different methods have been discussed on other blogs. The ones I found lead me on the right track but required a few modifications. The method below was what finally worked for me. I’ve included it in my PYTHONSTARTUP file with a conditional checking &lt;code&gt;sys.version[0] == &amp;quot;3&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class="sourceCode python"&gt;&lt;code class="sourceCode python"&gt;&lt;span class="kw"&gt;def&lt;/span&gt; &lt;span class="dt"&gt;execfile&lt;/span&gt;(filepath,  &lt;span class="dt"&gt;globals&lt;/span&gt;=&lt;span class="ot"&gt;None&lt;/span&gt;, &lt;span class="dt"&gt;locals&lt;/span&gt;=&lt;span class="ot"&gt;None&lt;/span&gt;):
+    &lt;span class="ch"&gt;import&lt;/span&gt; sys
+    &lt;span class="kw"&gt;if&lt;/span&gt; &lt;span class="dt"&gt;globals&lt;/span&gt; is &lt;span class="ot"&gt;None&lt;/span&gt;:
+        &lt;span class="dt"&gt;globals&lt;/span&gt; = sys._getframe(&lt;span class="dv"&gt;1&lt;/span&gt;).f_globals
+    &lt;span class="kw"&gt;if&lt;/span&gt; &lt;span class="dt"&gt;locals&lt;/span&gt; is &lt;span class="ot"&gt;None&lt;/span&gt;:
+        &lt;span class="dt"&gt;locals&lt;/span&gt; = sys._getframe(&lt;span class="dv"&gt;1&lt;/span&gt;).f_locals
+    &lt;span class="kw"&gt;with&lt;/span&gt; &lt;span class="dt"&gt;open&lt;/span&gt;(filepath, &lt;span class="st"&gt;&amp;quot;r&amp;quot;&lt;/span&gt;) &lt;span class="ch"&gt;as&lt;/span&gt; f:
+        &lt;span class="kw"&gt;try&lt;/span&gt;:
+            code = &lt;span class="dt"&gt;compile&lt;/span&gt;(f.read()+&lt;span class="st"&gt;&amp;quot;&lt;/span&gt;&lt;span class="ch"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;&amp;quot;&lt;/span&gt;,os.path.abspath(filepath),&lt;span class="st"&gt;&amp;#39;exec&amp;#39;&lt;/span&gt;)
+            &lt;span class="dt"&gt;exec&lt;/span&gt;(code,&lt;span class="dt"&gt;globals&lt;/span&gt;,&lt;span class="dt"&gt;locals&lt;/span&gt;)
+        &lt;span class="kw"&gt;except&lt;/span&gt; &lt;span class="ot"&gt;KeyboardInterrupt&lt;/span&gt;:
+            &lt;span class="kw"&gt;return&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hope this helps!&lt;/p&gt;
+</summary><category term="python"></category><category term="python3"></category><category term="programming"></category><category term="workflow"></category></entry><entry><title>Python 3 All the Things!</title><link href="astrodsg.github.io/blog/programming/2014/10/python-3-all-the-things.html" rel="alternate"></link><updated>2014-10-09T19:05:59-06:00</updated><author><name>Dylan Gregersen</name></author><id>tag:,2014-10-09:astrodsg.github.io/blog/programming/2014/10/python-3-all-the-things.html</id><summary type="html">&lt;p&gt;&lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
+&lt;h1 id="python-3-a-language-for-the-future"&gt;&lt;strong&gt;Python 3 : A Language for the Future&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Yesterday gave a talk at &lt;a href="http://www.slcpy.com"&gt;SLCPython Meetup&lt;/a&gt; Group about Python3. When I agreed to give this talk I had already read through many of the pages of changes (e.g. &lt;a href="https://docs.python.org/3.0/whatsnew/3.0.html"&gt;What’s new in Python 3&lt;/a&gt;) and felt like I had a pretty good understanding of the changes. The thing I didn’t realize was how much I would be learning about unicode.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/astrodsg/Python2to3"&gt;Click here for Resources from my talk&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;h1 id="why-unicode-is-a-step-forward"&gt;&lt;strong&gt;Why Unicode is a Step Forward&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Python 2 had several implicit uses of &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;ASCII&lt;/a&gt; encoding/decoding. ASCII was the first, widely accepted system for encoding human language (i.e. English) to computer bytes. This process is necessary because humans don’t express themselves well in bytes and computers don’t do well with language.&lt;/p&gt;
+&lt;p&gt;Many human languages exist. Each has its own ways to express ideas. As computers have evolved and become used all around the globe the need for computers to encode/decode more than just English is paramount. The development of the &lt;a href="https://en.wikipedia.org/wiki/Unicode"&gt;Unicode&lt;/a&gt; system characters is a major step to solving this problem. The next step is for developers to implement Unicode as a foundation for computer systems. This step will make computers more accessible to people of all backgrounds and cultures.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="It's a Unicode Party (Sorry this is mostly white folk, but it's fun gif)" src="astrodsg.github.io/static/img/blog/its_a_party.gif" style="width: 50%; display: inline-block;"/&gt; &lt;img alt="Unicode Hello World" src="astrodsg.github.io/static/img/blog/hello_world_all.png" style="width: 50%; display: inline-block; float:right;"/&gt;&lt;/p&gt;
+&lt;h1 id="python-adoption-of-unicode"&gt;&lt;strong&gt;Python Adoption of Unicode&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Unicode handling is the primary reason for the break in backwards compatibility. In the words of core developer &lt;a href="http://python-notes.curiousefficiency.org/en/latest/python3/questions_and_answers.html"&gt;Nick Coghlan&lt;/a&gt; “Fixing [Unicode handling bugs] within the constraints of the Python 2 text model is considered too hard to be worth the effort.”&lt;/p&gt;
+&lt;p&gt;The new text model in Python 3 treats all text as either byte arrays (machine language) or Unicode (human language(s)) with more explicit encoding/decoding. The diagram which helped me was this:&lt;/p&gt;
+&lt;p&gt;&lt;img src="astrodsg.github.io/static/img/blog/unicode_sandwich.jpg" alt="Unicode Sandwich" style="width:60%;"/&gt;&lt;/p&gt;
+&lt;p&gt;On the outside of the sandwich there’s the computer and byte storage, on the inside is the Unicode which humans understand.&lt;/p&gt;
+&lt;p&gt;This new text model also allows people to write code using any Unicode character. For example, &lt;a href="https://github.com/renyuanL/pythonTurtleInChinese"&gt;these scripts&lt;/a&gt; published on github use chinese characters (pretty fracking cool).&lt;/p&gt;
+&lt;h1 id="fixing-up-loose-ends"&gt;&lt;strong&gt;Fixing Up Loose Ends&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Since the core developers broke backwards compatibility anyway, this has been a great opportunity to fix up many of the inconsistencies and gotcha’s of Python 2. These are the changes most of us will notice. Things like maing &lt;code&gt;print&lt;/code&gt; a function or the deprecation of many functions and class methods (like &lt;code&gt;raw_input&lt;/code&gt; or &lt;code&gt;dict.iterkeys&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;I found it useful to look online at several of the “what’s new guides”. I think &lt;a href="http://docs.pythonsprints.com/python3_porting/py-porting.html"&gt;Brian Curtin’s Porting Guide&lt;/a&gt; is a nice and succinct place to start.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;img alt="Python3 Wants You" src="astrodsg.github.io/static/img/blog/Python3_wants_you.png" style="margin-top:80px; margin-bottom: 30px; height: 20%;"/&gt;&lt;/p&gt;
+&lt;h1 id="now-is-the-time"&gt;&lt;strong&gt;Now is the Time!&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Python is a powerful language mostly because of it’s libraries build by the community. The fear was that these packages would have trouble converting to Python3 (maybe never do) and that would be the end of Python. However, it seams to me that fear is no longer valid. By several measures, we’re now at 75% support of Python3 by major libraries. One of these measures, is the &lt;a href="http://py3readiness.org/"&gt;Python 3 Readiness&lt;/a&gt; site which looks at the top 360 &lt;code&gt;pip&lt;/code&gt; packages and the adoption of Python3.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://py3readiness.org/"&gt; &lt;img alt="Python3 Readiness" src="astrodsg.github.io/static/img/blog/Python3_Readiness.png"/&gt; &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;With almost all major libraries now supporting Python 3, it’s up to the rest of us to adopt this new language. Good luck!&lt;/p&gt;
+&lt;h1 id="other-online-materials"&gt;Other Online Materials&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.python.org/3.0/whatsnew/3.0.html"&gt;What’s New in Python 3&lt;/a&gt; – for most of the Python 2.7 to Python 3 changes.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.python.org/3/whatsnew/"&gt;What’s New&lt;/a&gt; – for a VERY long list of everything new (though check out the dense but “short” summary)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://nedbatchelder.com/text/unipain.html"&gt;Pragmatic Unicode talk/essay&lt;/a&gt; – or “Why Python 3 Exists” - Coghlan&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.pythonsprints.com/python3_porting/py-porting.html"&gt;Python 3 Porting Guide&lt;/a&gt; – nice quick reference for things which have changed from 2.x to 3x&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://python3porting.com/"&gt;Porting to Python 3: An in-depth guide&lt;/a&gt; – Definitely in depth&lt;/li&gt;
+&lt;/ul&gt;
+</summary><category term="python"></category><category term="python3"></category><category term="programming"></category><category term="2to3"></category></entry></feed>

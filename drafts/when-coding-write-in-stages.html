@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>
+Dylan Gregersen [blog archive]
+  </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="astrodsg.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+	<link id="bootstrap-stylesheet" href="astrodsg.github.io/theme/css/bootstrap-yeti.min.css" rel="stylesheet">
+	<link href="astrodsg.github.io/theme/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/css/highlight_kate/solarize.css" rel="stylesheet">
+  <!-- <link href="astrodsg.github.io/theme/css/bootstrap-tag-cloud.css" rel="stylesheet"> -->
+  <link href="astrodsg.github.io/theme/css/styles.css" rel="stylesheet">
+
+
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body id="home">
+
+<header>
+  <div class="navbar navbar-default navbar-fixed-top" role='navigation'>
+    <div class="container-fluid">
+      <div class="navbar-inner">      
+        <div class="navbar-header">
+        
+          <a class="navbar-brand" href="/">
+            Dylan Gregersen
+          </a>
+
+          <div class='navbar-toggle-container'>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-main"/>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </div>  
+
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="astrodsg.github.io/">Home</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/blog/index.html">Blog</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/research.html">Research</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/programming.html">Programming</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/contact.html">Contact</a>
+            </li>
+          </ul>
+          <!--  -->
+<!--           <div class="navbar-search">
+            <form class="navbar-form navbar-left" role="search" action="astrodsg.github.io/search.html" method="GET">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-btn">
+                  <button type="button" action='submit' class="btn btn-default">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </form>  
+          </div>
+        -->
+        <!-- glyphicon glyphicon-search       -->        
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <div id="wrap"><!--  class="container main"> -->
+    <section>
+<!--main-->
+<div class="container-fluid">
+
+  <div class="row-fluid">
+
+    <div class="col-md-9" id="leftCol">
+<article class="blog-post">
+	
+	<div class="page-header">
+		<h1>When Coding, Write in Stages</h1>
+	</div>
+	
+	<div class="well small">
+		<p>
+			Permalink: <a class="more" href="astrodsg.github.io/drafts/when-coding-write-in-stages.html">astrodsg.github.io/drafts/when-coding-write-in-stages.html</a>
+		</p>
+		<p>
+			by <!-- <a class="url fn" href="astrodsg.github.io/author/dylan-gregersen.html"> -->
+			Dylan Gregersen
+		</p>
+		<p>
+			Category: <a href="astrodsg.github.io/category/astronomy.html">Astronomy</a>
+		</p>
+		<p>
+			tags: 
+			<a href="astrodsg.github.io/tag/python.html">python</a> 
+			&#149;
+			<a href="astrodsg.github.io/tag/interactive.html">interactive</a> 
+			&#149;
+			<a href="astrodsg.github.io/tag/research.html">research</a> 
+			&#149;
+			<a href="astrodsg.github.io/tag/tips-n-tricks.html">tips-n-tricks</a> 
+		</p>
+	</div>
+
+	<div>
+		<p>Basically this post is about caching your results as you go. Why it’s a fantasitic idea and how I do it.</p>
+<p>This was a lesson I learned while writing scripts for my Astronomy research. I like to have all my code for a particular task in one script. I haven’t really given up on that because I think it’s good to have all the logic in one place. However, I learned the importance of coding in stages so that I don’t have to continually re-run code which takes a long time.</p>
+<h1 id="working-in-stages">Working in Stages</h1>
+<p>Don’t write one code which runs from start to finish. Segment your code into functions and sections which can be run one at a time.</p>
+<p>Here’s an example. I have a script which processes some data and makes plots of it. The “bad” way is to write a script which generates goes back and forth running processing steps (which take a while) and adding data to my plots.</p>
+<p>I have some function which generates data to plot. This function takes, say an hour to run. Then I make a plot with the data. Often these two tasks are lumped together (cause it makes logical sense) but from the CS viewpoint this makes the process harder. Say you want to change parameters of the plot or there’s an error in your plotting. Then you must re-run the entire code just to fix those minor bugs.</p>
+<h3 id="solution-1-make-two-scripts">Solution 1: Make two scripts</h3>
+<p>Make two scripts. One which generates the data and saves to file. Another which reads the data and makes a plot.</p>
+<h3 id="solution-2-cache-results-in-memory">Solution 2: Cache Results in Memory</h3>
+<p>I still like to have all my code together in one script so I break up my code into two functions: One which generates the data; another which plots it.</p>
+<p>In a script (example.py) I have the two lines: data = function(input) plot_data(data,filename_out)</p>
+<p>Then I use execfile to execute interactively &gt;&gt;&gt; execfile(“example.py”) &gt;&gt;&gt;</p>
+<p>To re-run and just make the plot I comment the data line out and re-execute in the open terminal. # data = function(input) plot_data(data,filename_out)</p>
+<p>This method works because I don’t close the python terminal. I’m using it interactively so the terminal still knows what ‘data’ means and keeps it all around in memory. The same works for this:</p>
+<pre><code>if &#39;startup&#39; in globals():
+    ...
+    data = function(input)
+    ...
+    startup = True
+plot_data(data,filename_out)</code></pre>
+<p>The variable <code>startup</code> lets the code know that that block has been run in the current terminal and all the names are saved in the current session.</p>
+<h3 id="solution-3-use-a-function-cacher">Solution 3: Use a Function Cacher</h3>
+<p>Allow the function or some object to store the results of running something long and interactive.</p>
+<h2 id="python-3">Python 3</h2>
+<p>Of the changes in Python 3 the one which caused the most distruption to this workflow is the removal of <code>execfile</code>. Many posts exist on how to backport <code>execfile</code> though I found most didn’t work well. This method did, and I’ve added it to my <a href="https://docs.python.org/2/using/cmdline.html#envvar-PYTHONSTARTUP">python startup file</a>:</p>
+<pre><code>import sys
+import os
+PY3 = sys.version[0] == &quot;3&quot;
+if PY3: 
+    # backport of execfile
+    def execfile(filepath,  globals=None, locals=None):
+        if globals is None:
+            globals = sys._getframe(1).f_globals
+        if locals is None:
+            locals = sys._getframe(1).f_locals
+        with open(filepath, &quot;r&quot;) as f:
+            # import runpy
+            # result = runpy.run_path(f,globals,locals)
+            # globals.update(result) ??  
+            code = compile(f.read()+&quot;\n&quot;,os.path.abspath(filepath),&#39;exec&#39;)
+            exec(code,globals,locals)
+    # backport of reload       
+    def reload(some_module):
+        import importlib as imp
+        imp.reload(some_module)
+        return(some_module)     </code></pre>
+<p>Note the reason <code>execfile</code> was deprecated is because it’s not the correct thing to use to incorporate other code into your scripts. I.e. In a script never do:</p>
+<pre><code>...
+execfile(&quot;other_script.py&quot;)
+...</code></pre>
+<p>Always use <code>import other_script</code>. If you change something in ‘other_script’ you’ll need to <code>reload(other_script)</code>.</p>
+
+	</div>
+
+<!-- Navigation bar for moving forward and backards in posts
+This uses the plugin multi_neighbors for pelican to get the
+article.prev_articles and article.next_articles attributes
+
+-->
+<div class="blog-nav">
+
+  <!-- Previous/Older Posts -->
+  
+
+  <!-- Go to All Posts -->
+  <div class="btn btn-info blog-nav-btn">
+    <a href="astrodsg.github.io/blog">  
+      All Posts
+    </a>
+  </div>
+
+  <!-- Next/Newer Posts -->
+  
+        
+</div>
+</articles>
+    </div> 
+
+    <div class="col-md-3">
+<!--left-->
+<aside class="sidebar well well-lg">
+  <section>
+    <h2 class="sidebar-title">
+      <a href="astrodsg.github.io/blog" class="section-title">
+        My Blog
+      </a>
+    </h2>
+  </section>
+
+  <section>
+    <h2><a href="astrodsg.github.io/categories" class="section-title">Categories</a></h2>
+    <ul>    
+      <li><a href="astrodsg.github.io/category/programming.html">Programming</a></li>
+    </ul>      
+  </section>
+
+  <section>
+    <h2><a href="astrodsg.github.io/tags" class="section-title">Tags</a></h2>
+    <div class="tag-cloud-container">
+    <ul class="tag-cloud">   
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/programming.html">
+           <span class="badge">3</span> programming
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/python.html">
+           <span class="badge">3</span> python
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/python3.html">
+           <span class="badge">2</span> python3
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/workflow.html">
+           <span class="badge">1</span> workflow
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/matplotlib.html">
+           <span class="badge">1</span> matplotlib
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/plotting.html">
+           <span class="badge">1</span> plotting
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/2to3.html">
+           <span class="badge">1</span> 2to3
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/colormaps.html">
+           <span class="badge">1</span> colormaps
+        </a>
+      </li>
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tags">...</a>
+      </li>
+    </ul>  
+    </div>
+  </section>
+
+  <section>
+    <h2>Social</h2>    
+    <ul>    
+      <li><a href="astrodsg.github.io/feeds/all.atom.xml" rel="alternate">atom feed</a></li>
+
+
+        <li><a href="http://twitter.com/astrdsg">twitter</a></li>
+        <li><a href="http://github.com/astrodsg">github</a></li>
+      
+    </ul>
+  </section>
+</aside>    </div>
+
+  </div><!--/row-->
+  <div class="row-fluid">
+    <footer>
+<p> Powered by <a href="http://python.org">pyth</a>-<a href="http://getpelican.com">ican</a>.
+</p>
+<p>
+Content covered by <a href="/license.html">MIT License</a>
+</p>    </footer>
+  </div>
+</div><!--/container-->
+    </section>
+  </div>
+
+<div id="goto">
+    <script>
+      document.write("<i class='fa  fa-chevron-circle-up fa-2x'></i>");
+      document.getElementById('goto').style.display = "none";
+    </script>
+    <noscript>
+      <a href='#'>    
+        TOP
+      </a>
+    </noscript>
+</div><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-57873164-1', 'auto');
+  ga('send', 'pageview');
+</script>  
+
+  <!-- script references -->
+  <script src="astrodsg.github.io/theme/js/jquery-2.0.0.min.js"></script>
+  <script src="astrodsg.github.io/theme/js/bootstrap.min.js"></script>
+  <script src="astrodsg.github.io/theme/js/goto_top.js"></script>
+  <!-- <script src="astrodsg.github.io/theme/js/scripts.js"></script> -->
+
+</body>
+</html>

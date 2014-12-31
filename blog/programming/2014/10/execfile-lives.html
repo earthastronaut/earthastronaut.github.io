@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>
+Dylan Gregersen [blog archive]
+  </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="astrodsg.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+	<link id="bootstrap-stylesheet" href="astrodsg.github.io/theme/css/bootstrap-yeti.min.css" rel="stylesheet">
+	<link href="astrodsg.github.io/theme/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/css/highlight_kate/solarize.css" rel="stylesheet">
+  <!-- <link href="astrodsg.github.io/theme/css/bootstrap-tag-cloud.css" rel="stylesheet"> -->
+  <link href="astrodsg.github.io/theme/css/styles.css" rel="stylesheet">
+
+
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body id="home">
+
+<header>
+  <div class="navbar navbar-default navbar-fixed-top" role='navigation'>
+    <div class="container-fluid">
+      <div class="navbar-inner">      
+        <div class="navbar-header">
+        
+          <a class="navbar-brand" href="/">
+            Dylan Gregersen
+          </a>
+
+          <div class='navbar-toggle-container'>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-main"/>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </div>  
+
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="astrodsg.github.io/">Home</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/blog/index.html">Blog</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/research.html">Research</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/programming.html">Programming</a>
+            </li>
+            <li>
+              <a href="astrodsg.github.io/contact.html">Contact</a>
+            </li>
+          </ul>
+          <!--  -->
+<!--           <div class="navbar-search">
+            <form class="navbar-form navbar-left" role="search" action="astrodsg.github.io/search.html" method="GET">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-btn">
+                  <button type="button" action='submit' class="btn btn-default">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </form>  
+          </div>
+        -->
+        <!-- glyphicon glyphicon-search       -->        
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <div id="wrap"><!--  class="container main"> -->
+    <section>
+<!--main-->
+<div class="container-fluid">
+
+  <div class="row-fluid">
+
+    <div class="col-md-9" id="leftCol">
+<article class="blog-post">
+	
+	<div class="page-header">
+		<h1>Execfile Lives!</h1>
+	</div>
+	
+	<div class="well small">
+		<p>
+			Permalink: <a class="more" href="astrodsg.github.io/blog/programming/2014/10/execfile-lives.html">astrodsg.github.io/blog/programming/2014/10/execfile-lives.html</a>
+		</p>
+		<p>
+			by <!-- <a class="url fn" href="astrodsg.github.io/author/dylan-gregersen.html"> -->
+			Dylan Gregersen
+		</p>
+		<p>
+			Category: <a href="astrodsg.github.io/category/programming.html">Programming</a>
+		</p>
+		<p>
+			tags: 
+			<a href="astrodsg.github.io/tag/python.html">python</a> 
+			&#149;
+			<a href="astrodsg.github.io/tag/python3.html">python3</a> 
+			&#149;
+			<a href="astrodsg.github.io/tag/programming.html">programming</a> 
+			&#149;
+			<a href="astrodsg.github.io/tag/workflow.html">workflow</a> 
+		</p>
+	</div>
+
+	<div>
+		<h1 id="execfile-lives">Execfile Lives!</h1>
+<p>One of the changes in Python 3 is the deprecation of the builtin function <code>execfile</code>. This was done with very good intentions and lots of thought. I mostly agree with the choice but here’s why I choose to resurrect…<code>execfile</code>.</p>
+<h2 id="deprecating-execfile-was-good">Deprecating <code>execfile</code> was Good</h2>
+<!-- First off, `reload` was just taken out of the main namespace. You can still access it using `from importlib import reload`. I'm not exactly sure the reason (if you know please comment), but most likely it was to clean up the main python namespace. Modules will automatically be loaded each time you run a script afresh. Most of the time this is enough and requiring a developer to go to the standard library package importlib is nice. 
+ -->
+<p><code>execfile</code> takes a file, compiles it into a code object (under the hood), and executes each line of code in turn every time it’s called. At one point, I used this in the way feared by the core Python developers: to include other code. I have two files “file1.py” and “file2.py”; I want to include “file1.py” into “file2.py” to execute the lines; So I do the following:</p>
+<p>“file2.py”</p>
+<pre class="sourceCode python"><code class="sourceCode python">...
+<span class="dt">execfile</span>(<span class="st">&quot;file1.py&quot;</span>)
+...</code></pre>
+<p><em>THIS IS BAD!</em> Primarily because you have no idea what variables in “file1.py” are now in the current namespace. It makes it hard to read and debug.</p>
+<p>To include extra code correctly you should locate “file1.py” into your PYTHONPATH and use <code>imp.reload</code> if you want to interactively update data from the file.</p>
+<h2 id="deprecating-execfile-was-bad">Deprecating <code>execfile</code> was Bad</h2>
+<p>Entirely for interactively use. For my research, I primarily use Python as an interactive shell to type in the commands I want executed then dynamically investigate the results. To expedite this process, I write scripts that are never meant to be imported but run in the primary namespace and give me dynamic access to its variables.</p>
+<h2 id="resurrecting-execfile-in-python-3">Resurrecting <code>execfile</code> in Python 3</h2>
+<p>A few different methods have been discussed on other blogs. The ones I found lead me on the right track but required a few modifications. The method below was what finally worked for me. I’ve included it in my PYTHONSTARTUP file with a conditional checking <code>sys.version[0] == &quot;3&quot;</code>.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> <span class="dt">execfile</span>(filepath,  <span class="dt">globals</span>=<span class="ot">None</span>, <span class="dt">locals</span>=<span class="ot">None</span>):
+    <span class="ch">import</span> sys
+    <span class="kw">if</span> <span class="dt">globals</span> is <span class="ot">None</span>:
+        <span class="dt">globals</span> = sys._getframe(<span class="dv">1</span>).f_globals
+    <span class="kw">if</span> <span class="dt">locals</span> is <span class="ot">None</span>:
+        <span class="dt">locals</span> = sys._getframe(<span class="dv">1</span>).f_locals
+    <span class="kw">with</span> <span class="dt">open</span>(filepath, <span class="st">&quot;r&quot;</span>) <span class="ch">as</span> f:
+        <span class="kw">try</span>:
+            code = <span class="dt">compile</span>(f.read()+<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,os.path.abspath(filepath),<span class="st">&#39;exec&#39;</span>)
+            <span class="dt">exec</span>(code,<span class="dt">globals</span>,<span class="dt">locals</span>)
+        <span class="kw">except</span> <span class="ot">KeyboardInterrupt</span>:
+            <span class="kw">return</span></code></pre>
+<p>Hope this helps!</p>
+
+	</div>
+
+<!-- Navigation bar for moving forward and backards in posts
+This uses the plugin multi_neighbors for pelican to get the
+article.prev_articles and article.next_articles attributes
+
+-->
+<div class="blog-nav">
+
+  <!-- Previous/Older Posts -->
+  <div class="blog-nav-btn blog-older"> 
+    <div class="btn btn-info blog-neighbor">      
+      <a href="astrodsg.github.io/blog/programming/2014/10/python-3-all-the-things.html">
+        <span aria-hidden="true">&larr;</span> Older
+      </a>
+    </div>
+    <div class="btn-group blog-nav-menu-toggle">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">      
+        <li><a href="/blog/programming/2014/10/python-3-all-the-things.html">Python 3 All the Things!</a></li>
+      </ul>
+    </div>
+  </div>
+  
+
+  <!-- Go to All Posts -->
+  <div class="btn btn-info blog-nav-btn">
+    <a href="astrodsg.github.io/blog">  
+      All Posts
+    </a>
+  </div>
+
+  <!-- Next/Newer Posts -->
+  <div class="blog-nav-btn blog-newer"> 
+    <div class="btn btn-info blog-neighbor">      
+      <a href="astrodsg.github.io/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html">
+        Newer <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+    <div class="btn-group blog-nav-menu-toggle">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">      
+        <li><a href="/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html">Practical Tools for Matplotlib Colormaps</a></li>
+      </ul>
+    </div>
+  </div>
+  
+        
+</div>
+</articles>
+    </div> 
+
+    <div class="col-md-3">
+<!--left-->
+<aside class="sidebar well well-lg">
+  <section>
+    <h2 class="sidebar-title">
+      <a href="astrodsg.github.io/blog" class="section-title">
+        My Blog
+      </a>
+    </h2>
+  </section>
+
+  <section>
+    <h2><a href="astrodsg.github.io/categories" class="section-title">Categories</a></h2>
+    <ul>    
+      <li><a href="astrodsg.github.io/category/programming.html">Programming</a></li>
+    </ul>      
+  </section>
+
+  <section>
+    <h2><a href="astrodsg.github.io/tags" class="section-title">Tags</a></h2>
+    <div class="tag-cloud-container">
+    <ul class="tag-cloud">   
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/programming.html">
+           <span class="badge">3</span> programming
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/python.html">
+           <span class="badge">3</span> python
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/python3.html">
+           <span class="badge">2</span> python3
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/workflow.html">
+           <span class="badge">1</span> workflow
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/matplotlib.html">
+           <span class="badge">1</span> matplotlib
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/plotting.html">
+           <span class="badge">1</span> plotting
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/2to3.html">
+           <span class="badge">1</span> 2to3
+        </a>
+      </li>
+      <!-- <li class="tag-cloud"> -->
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tag/colormaps.html">
+           <span class="badge">1</span> colormaps
+        </a>
+      </li>
+      <li role='presentation'>
+        <a href="astrodsg.github.io/tags">...</a>
+      </li>
+    </ul>  
+    </div>
+  </section>
+
+  <section>
+    <h2>Social</h2>    
+    <ul>    
+      <li><a href="astrodsg.github.io/feeds/all.atom.xml" rel="alternate">atom feed</a></li>
+
+
+        <li><a href="http://twitter.com/astrdsg">twitter</a></li>
+        <li><a href="http://github.com/astrodsg">github</a></li>
+      
+    </ul>
+  </section>
+</aside>    </div>
+
+  </div><!--/row-->
+  <div class="row-fluid">
+    <footer>
+<p> Powered by <a href="http://python.org">pyth</a>-<a href="http://getpelican.com">ican</a>.
+</p>
+<p>
+Content covered by <a href="/license.html">MIT License</a>
+</p>    </footer>
+  </div>
+</div><!--/container-->
+    </section>
+  </div>
+
+<div id="goto">
+    <script>
+      document.write("<i class='fa  fa-chevron-circle-up fa-2x'></i>");
+      document.getElementById('goto').style.display = "none";
+    </script>
+    <noscript>
+      <a href='#'>    
+        TOP
+      </a>
+    </noscript>
+</div><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-57873164-1', 'auto');
+  ga('send', 'pageview');
+</script>  
+
+  <!-- script references -->
+  <script src="astrodsg.github.io/theme/js/jquery-2.0.0.min.js"></script>
+  <script src="astrodsg.github.io/theme/js/bootstrap.min.js"></script>
+  <script src="astrodsg.github.io/theme/js/goto_top.js"></script>
+  <!-- <script src="astrodsg.github.io/theme/js/scripts.js"></script> -->
+
+</body>
+</html>

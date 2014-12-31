@@ -1,0 +1,301 @@
+/*
+A Bootstrap 3.1 affix sidebar template
+from http://bootply.com
+
+This CSS code should follow the 'bootstrap.css'
+in your HTML file.
+
+license: MIT
+author: bootply.com
+updated by: astrodsg.github.io
+*/
+
+body {
+  padding-top:70px;
+}
+
+footer {
+  min-height: 40px;
+}
+
+
+/* FRONTPAGE LIST : WHO AM I*/
+
+ul.whoami {
+  list-style-type: none;
+  padding: 0px;
+  margin: 2px;
+}
+
+ul.whoami li:nth-child(even) {
+  font-weight: 600;
+
+}
+
+/* TAG CLOUD */
+
+.tag-cloud-container {
+  display: inline-block;  
+}
+
+ul.tag-cloud {  
+  list-style-type: none;
+  padding-left: 15px;
+  float: left;
+}
+
+ul.tag-cloud li {
+  text-align: left;
+}
+
+
+/* SIDEBAR ITEMS */
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 10px;
+  padding-left: 15px;
+}
+
+.sidebar a.section-title {
+  color: inherit;
+
+}
+
+.sidebar {
+  padding: 5px;
+  padding-left: 20px;
+  max-width: 270px;
+}
+
+@media (min-width: 979px) {
+  .sidebar.affix-top {
+    position: static;
+    margin-top:30px;
+    width:228px;
+  }
+  
+  .sidebar.affix {
+    position: fixed;
+    top:70px;
+    width:228px;
+  }
+
+}
+
+
+/* PANELS */
+
+.panel {
+  margin-bottom: 20px;
+  margin-top: 20px;  
+}
+
+.panel-heading {
+  height: auto;
+  padding: 10px;
+  text-align: left;
+}
+
+.panel-heading img {
+  display: inline-block;
+  height: 100%;
+  max-width: 150px;
+}
+
+.panel-heading h4 {
+  display: inline-block; 
+  padding: 15px;
+  padding-right: 85px;
+  margin-right: 85px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.panel button {
+  width: 100%;
+}
+
+.category-container article {
+  padding-left: 30px;
+}
+
+/*.nav > li > a {
+  padding: 2px 2px;
+}
+*/
+
+
+.blog-nav {
+  margin-top: 20px;
+  padding-top: 30px;
+  margin-bottom: 20px;
+  min-width: 380px;
+  border-top: 2px solid;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  height: 70px;
+}
+
+.blog-nav-btn {
+  height: 100%;
+  margin-left: 3px;
+  margin-right: 3px;
+  display: inline-block;   
+  position: relative; 
+  border-radius: 2px;    
+}
+
+.blog-nav-btn a {
+  color: #fff;
+}
+
+.blog-nav-btn a:hover {
+  text-decoration: none;
+}
+
+.blog-neighbor {
+  height: 100%;
+}
+
+.blog-nav-menu-toggle {
+  height: 100%;
+}
+
+.blog-nav-menu-toggle button {
+  height: 100%;
+}
+
+.blog-older .blog-neighbor {
+  float:left;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;    
+}
+
+.blog-older .blog-nav-menu-toggle button {
+  float: right;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;    
+}
+
+.blog-older .blog-nav-menu-toggle .dropdown-menu {
+  margin-right: 3px;
+}
+
+.blog-newer .blog-neighbor {
+  float:right;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;    
+}
+
+.blog-newer .blog-nav-menu-toggle button {
+  float: left;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;    
+}
+
+.blog-newer .blog-nav-menu-toggle .dropdown-menu {
+  margin-left: 3px;
+}
+
+
+
+
+
+
+
+article.blog-post {
+  margin-bottom: 50px;
+
+}
+
+
+.navbar-search {
+  height: 40px;
+  right: 20px;
+}
+.navbar-search .form-control {
+  height: 30px;
+  border-top-left-radius: 0.2em 0.2em;
+  border-bottom-left-radius: 0.2em 0.2em; 
+}
+.navbar-search button {
+  height: 30px;
+  border-top-right-radius: 0.2em 0.2em;
+  border-bottom-right-radius: 0.2em 0.2em;  
+}
+
+
+
+
+
+
+#contact-oldschool {
+  padding-top:50px;
+  margin-bottom: 100px;
+
+}
+
+
+
+
+
+
+
+.global-nav-search-input-wrapper .search-submit {
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf-8;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQoJPHBhdGggZmlsbD0iIzA5MjE0MCIgZD0ibTI2LjgsMjUuM2wtMS42LDEuNmMtMC4xLDAuMSAtMC40LDAuMSAtMC41LDBsLTQuNSwtNC41Yy0xLjEsMC43IC0yLjUsMS4yIC0zLjksMS4yYy00LDAgLTcuMywtMy4zIC03LjMsLTcuM2MtMC4xLC00IDMuMiwtNy4zIDcuMiwtNy4zYzQsMCA3LjMsMy4zIDcuMyw3LjNjMCwxLjQgLTAuNCwyLjggLTEuMiwzLjlsNC41LDQuNWMwLjEsMC4yIDAuMSwwLjQgMCwwLjZ6bS01LjcsLTljMCwtMi43IC0yLjIsLTUgLTUsLTVjLTIuNywwIC01LDIuMiAtNSw1YzAsMi43IDIuMiw1IDUsNWMyLjgsLTAuMSA1LC0yLjMgNSwtNXoiLz4NCjwvc3ZnPg0K");
+    border: 0 none;
+    height: 36px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    width: 36px;
+}
+
+a.wikia-button, .wikia-single-button a, .wikia-menu-button, input[type="submit"], input[type="reset"], input[type="button"], .button, button {
+/*    background-color: #12529e;
+    background-image: -moz-linear-gradient(center top , #176acc 35%, #12529e 65%);
+*/    
+    border: 1px solid #12529e;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    height: 19px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0 10px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+
+
+#goto {
+  min-width:60px;
+  position: fixed;
+  font-size: 30px;
+  right: 25px;
+  bottom: 10px;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* internet explorer */  
+}
+
+#goto:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100); /* internet explorer */  
+}
+
+
+
+
+
+
+
+
+
+
