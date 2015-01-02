@@ -99,8 +99,9 @@ ul.tag-cloud li {
 
 .panel-heading img {
   display: inline-block;
-  height: 100%;
+  width: 100%;
   max-width: 150px;
+  max-height:150px;
 }
 
 .panel-heading h4 {
