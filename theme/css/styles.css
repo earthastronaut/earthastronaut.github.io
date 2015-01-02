@@ -271,6 +271,7 @@ a.wikia-button, .wikia-single-button a, .wikia-menu-button, input[type="submit"]
 
 
 #goto-container {
+  display: block;
   position: fixed;
   height: 120px;
   min-width:60px;
