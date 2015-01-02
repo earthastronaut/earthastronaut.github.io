@@ -279,6 +279,7 @@ a.wikia-button, .wikia-single-button a, .wikia-menu-button, input[type="submit"]
 }
 
 #goto {
+  display: block;
   color: #008cba;
   cursor: pointer;
   font-size: 30px;
