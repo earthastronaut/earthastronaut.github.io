@@ -1,4 +1,5 @@
 // global variables to use
+var goto_container = $('#goto-container');
 var goto_element = $('#goto');
 var goto_match_css = $('footer a');
 var goto_match_css_attrs = ['color','cursor'];
@@ -45,13 +46,13 @@ $(window).scroll(disapear_near_top);
 *
 */
 function disapear_near_top() {
-    var is_visible = goto_element.block == 'none';
+    var is_visible = goto_container.block == 'none';
     var near_top = $(window).scrollTop() < disapear_distance_to_top;
     // check if element is near the top
     if ( near_top && !(is_visible) ) {
-        goto_element.slideUp();
+        goto_container.slideUp();
     } else {
-        goto_element.slideDown(); 
+        goto_container.slideDown(); 
     }
 }
 
