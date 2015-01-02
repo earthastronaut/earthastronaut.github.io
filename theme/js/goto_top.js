@@ -1,8 +1,6 @@
 // global variables to use
 var goto_container = $('#goto-container');
 var goto_element = $('#goto');
-var goto_match_css = $('footer a');
-var goto_match_css_attrs = ['color','cursor'];
 var disapear_distance_to_top = 100;
 
 /** Choose a random element from an array
@@ -18,7 +16,6 @@ function random_choice (arr) {
     return arr[rand];
 }
 
-$(document).ready(init_goto);
 /** Initialize the goto element
 * Globally uses
 * @param {DOM} goto_element
@@ -27,18 +24,16 @@ $(document).ready(init_goto);
 *
 */
 function init_goto () {
-    for (var i in goto_match_css_attrs){
-        goto_element.css(goto_match_css_attrs[i],
-            goto_match_css.css(goto_match_css_attrs[i]));
-    }
+    goto_element.css("display","block");
+    // check is it's currently visible
     if ($(window).scrollTop() < disapear_distance_to_top) {
-        goto_element.hide();
+        goto_element.hide();        
     } else {
         goto_element.show();
     }
 }
+$(document).ready(init_goto);
 
-$(window).scroll(disapear_near_top);
 /** Hide goto_element near top
 * Globally uses
 * @param {DOM} goto_element
@@ -49,14 +44,14 @@ function disapear_near_top() {
     var is_visible = goto_container.block == 'none';
     var near_top = $(window).scrollTop() < disapear_distance_to_top;
     // check if element is near the top
-    if ( near_top && !(is_visible) ) {
+    if ( near_top && !(is_visible) ) {        
         goto_container.slideUp();
     } else {
         goto_container.slideDown(); 
     }
 }
+$(window).scroll(disapear_near_top);
 
-goto_element.click(scroll_to_top);
 /** goto_element on click
 * Globally uses DOM element "html, body"
 *
@@ -66,3 +61,4 @@ function scroll_to_top() {
         scrollTop: 0 
     }, "slow");
 }
+goto_element.click(scroll_to_top);
