@@ -24,12 +24,12 @@ function random_choice (arr) {
 *
 */
 function init_goto () {
-    goto_element.css("display","block");
+    goto_container.css("display","block");
     // check is it's currently visible
     if ($(window).scrollTop() < disapear_distance_to_top) {
-        goto_element.hide();        
+        goto_container.hide();        
     } else {
-        goto_element.show();
+        goto_container.show();
     }
 }
 $(document).ready(init_goto);
