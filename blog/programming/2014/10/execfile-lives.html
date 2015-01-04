@@ -146,10 +146,9 @@ Dylan Gregersen [blog archive]
 <span class="dt">execfile</span>(<span class="st">&quot;file1.py&quot;</span>)
 ...</code></pre>
 <p><em>THIS IS BAD!</em> Primarily because you have no idea what variables in “file1.py” are now in the current namespace. It makes it hard to read and debug.</p>
-<p>To include extra code correctly you should locate “file1.py” into your PYTHONPATH and use <code>imp.reload</code> if you want to interactively update data from the file.</p>
-<h2 id="deprecating-execfile-was-bad">Deprecating <code>execfile</code> was Bad</h2>
-<p>Entirely for interactively use. For my research, I primarily use Python as an interactive shell to type in the commands I want executed then dynamically investigate the results. To expedite this process, I write scripts that are never meant to be imported but run in the primary namespace and give me dynamic access to its variables.</p>
-<h2 id="resurrecting-execfile-in-python-3">Resurrecting <code>execfile</code> in Python 3</h2>
+<p>To include extra code correctly you should locate “file1.py” into your PYTHONPATH and use <code>import file1</code> to access all the variables. You can use <code>imp.reload</code> if you want to interactively update data from the file</p>
+<h2 id="deprecating-execfile-was-bad-and-how-to-resurrect">Deprecating <code>execfile</code> was Bad and how to Resurrect</h2>
+<p><strong>Entirely for interactively use.</strong> For my research, I primarily use Python as an interactive shell to type in the commands I want executed then dynamically investigate the results. I explicitly type <code>execfile</code> onto the command line so that it will be executed in the interpretor and all the variables will be in the main namespace. Then I can segment parts of the script to put into other scripts which I can import.</p>
 <p>A few different methods have been discussed on other blogs. The ones I found lead me on the right track but required a few modifications. The method below was what finally worked for me. I’ve included it in my PYTHONSTARTUP file with a conditional checking <code>sys.version[0] == &quot;3&quot;</code>.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> <span class="dt">execfile</span>(filepath,  <span class="dt">globals</span>=<span class="ot">None</span>, <span class="dt">locals</span>=<span class="ot">None</span>):
     <span class="ch">import</span> sys
@@ -265,14 +264,14 @@ article.prev_articles and article.next_articles attributes
       </li>
       <!-- <li class="tag-cloud"> -->
       <li role='presentation'>
-        <a href="https://astrodsg.github.io/tag/colormaps.html">
-           <span class="badge">1</span> colormaps
+        <a href="https://astrodsg.github.io/tag/2to3.html">
+           <span class="badge">1</span> 2to3
         </a>
       </li>
       <!-- <li class="tag-cloud"> -->
       <li role='presentation'>
-        <a href="https://astrodsg.github.io/tag/matplotlib.html">
-           <span class="badge">1</span> matplotlib
+        <a href="https://astrodsg.github.io/tag/colormaps.html">
+           <span class="badge">1</span> colormaps
         </a>
       </li>
       <!-- <li class="tag-cloud"> -->
@@ -283,14 +282,14 @@ article.prev_articles and article.next_articles attributes
       </li>
       <!-- <li class="tag-cloud"> -->
       <li role='presentation'>
-        <a href="https://astrodsg.github.io/tag/workflow.html">
-           <span class="badge">1</span> workflow
+        <a href="https://astrodsg.github.io/tag/matplotlib.html">
+           <span class="badge">1</span> matplotlib
         </a>
       </li>
       <!-- <li class="tag-cloud"> -->
       <li role='presentation'>
-        <a href="https://astrodsg.github.io/tag/2to3.html">
-           <span class="badge">1</span> 2to3
+        <a href="https://astrodsg.github.io/tag/workflow.html">
+           <span class="badge">1</span> workflow
         </a>
       </li>
       <li role='presentation'>
