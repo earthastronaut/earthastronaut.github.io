@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Dylan Gregersen</title><link href="https://astrodsg.github.io/" rel="alternate"></link><link href="https://astrodsg.github.io/feeds/programming.atom.xml" rel="self"></link><id>https://astrodsg.github.io/</id><updated>2014-12-18T09:28:50-07:00</updated><entry><title>Practical Tools for Matplotlib Colormaps</title><link href="https://astrodsg.github.io/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html" rel="alternate"></link><updated>2014-12-18T09:28:50-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:astrodsg.github.io,2014-12-18:blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html</id><summary type="html">&lt;h1 id="color-maps-rock"&gt;Color Maps Rock!&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Dylan Gregersen</title><link href="https://astrodsg.github.io/" rel="alternate"></link><link href="https://astrodsg.github.io/feeds/programming.atom.xml" rel="self"></link><id>https://astrodsg.github.io/</id><updated>2015-03-04T19:37:15-07:00</updated><entry><title>Publishing a Pelican Project to Github Pages</title><link href="https://astrodsg.github.io/blog/programming/2015/03/publishing-a-pelican-project-to-github-pages.html" rel="alternate"></link><updated>2015-03-04T19:37:15-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:astrodsg.github.io,2015-03-04:blog/programming/2015/03/publishing-a-pelican-project-to-github-pages.html</id><summary type="html">&lt;h1 id="publishing-pelican-to-github-pages"&gt;Publishing Pelican to Github Pages&lt;/h1&gt;
+&lt;p&gt;When I created my personal webpage, I planned for it to be git tracked and hosted on github pages. I used Pelican to generate the static content to push to github. Reading up on &lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt; I learned they want me to push to “username.github.io, where username is your username (or organization name) on GitHub”. But the unexpected trick was that when github’s server looks at http://username.github.io it uses the master branch.&lt;/p&gt;
+&lt;p&gt;This post is about how I set up my Pelican website with git and published to http://username.github.io master branch.&lt;/p&gt;
+&lt;h2 id="tracking-your-pelican-project-with-git"&gt;Tracking Your Pelican Project with Git&lt;/h2&gt;
+&lt;p&gt;If you have some pelican project going this will add git version control. My example lives in “~/project/yoursite”.&lt;/p&gt;
+&lt;p&gt;First, create and add the following lines to “~/project/yoursite/.gitignore”&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;publishconf.py 
+output
+*.pyc
+*.pid
+cache
+__pycache__&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, initialize git&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/project/yoursite/  # directory of our pelican project
+git init
+git add .
+git commit -m &amp;quot;initial commit&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You’ll want to familiarize yourself with git if you haven’t already.&lt;/p&gt;
+&lt;h2 id="set-up-pelican-to-publish-to-github-pages"&gt;Set Up Pelican to Publish to Github Pages&lt;/h2&gt;
+&lt;p&gt;Now I’ll walk through setting up your Pelican project to be your primary github page. Github hosts, for free, websites with static content (explained at &lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;). You can create sub-websites for each project and one primary for your account. The primary account is located at username.github.io “where username is your username (or organization name) on GitHub”.&lt;/p&gt;
+&lt;p&gt;To set up your project on github, create the repo on github then run&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git remote add origin https://github.com/username/username.github.io # where username is your username (or organization name) on GitHub.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you create your username.github.io repository github hosts the content on your master branch. But now there’s &lt;strong&gt;a problem:&lt;/strong&gt; But your master branch is also where all your pelican development is and the what you want to publish is probably in an output directory.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;My solution:&lt;/strong&gt; Have my primary development in a branch called pelican and then push my final content to the master. This is not standard but I think it’s pretty elegant.&lt;/p&gt;
+&lt;p&gt;To implement create a second branch (your new master) called ‘pelican’ (or whatever you actually want to use)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git checkout -b pelican&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now to push to the master branch their’s a handy tool called ghp-import. You can install via pip:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install ghp-import&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you’ve set up pelican project with a Makefile (recommended) then you can simply edit that file by adding:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;GITHUB_PAGES_BRANCH=master&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If not you can create a make file and add the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;OUTPUTDIR=output
+GITHUB_PAGES_BRANCH=master
+github: publish
+    ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
+    git push origin $(GITHUB_PAGES_BRANCH)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now when you type &lt;code&gt;make github&lt;/code&gt;, it’ll make the pelican content out to the master branch and push it to github. Then you can go to [https://username.github.io] to view your website from anywhere! Nifty, huh?&lt;/p&gt;
+</summary><category term="python"></category><category term="pelican"></category><category term="git"></category><category term="web-dev"></category><category term="github"></category></entry><entry><title>Practical Tools for Matplotlib Colormaps</title><link href="https://astrodsg.github.io/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html" rel="alternate"></link><updated>2014-12-18T09:28:50-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:astrodsg.github.io,2014-12-18:blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html</id><summary type="html">&lt;h1 id="color-maps-rock"&gt;Color Maps Rock!&lt;/h1&gt;
 &lt;p&gt;I like colorful plots. They may cost &lt;a href="http://hyperboleandahalf.blogspot.com/2010/04/alot-is-better-than-you-at-everything.html"&gt;alot&lt;/a&gt; to publish in a research journal but they’re just so pretty. Quite a few blogs have been written ranting about rainbow colormaps and also about how to choose really good colormaps.&lt;/p&gt;
 &lt;p&gt;This blog is devoted to practical tools I use to help me with colormapping. The actual code is in a github gist of &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
