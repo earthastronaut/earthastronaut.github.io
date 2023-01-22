@@ -1,0 +1,367 @@
+<!-- -->
+
+<!DOCTYPE html>
+<html lang="en
+"  prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml" >
+
+  <head>
+    <title>
+How I Made My Blog
+  -
+  Dylan Gregersen
+    </title>
+
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/favicon/apple-touch-icon.png"> <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png"> <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png"> <link rel="manifest" href="/static/img/favicon/site.webmanifest"> <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#ffffff"> <meta name="msapplication-TileColor" content="#ffffff"> <meta name="theme-color" content="#ffffff"> -->
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+
+    <!-- if -->
+  <link rel="canonical" href="/blog/programming/2015/03/how-i-made-my-blog"/>
+
+    <!-- if -->
+  <!-- if -->
+
+    <meta name="author" content="Dylan Gregersen"/>
+
+  <!-- if -->
+
+
+  <!-- if -->
+
+    <meta name="description" content="blog pelican python web-dev summary: This is the obligatory post which all programmers with a home-made blog have to write (Ha). How I Made My Blog When I created this website using Pelican I looked at many other websites and examples (I&#39;m a master google searcher--aren&#39;t we all?). I thought I&#39;d avoid writing my own &#34;how I made this blog&#34;; however, a recent conversation with a friend convinced me that at least he would appreciate some notes about my website …"/>
+
+    <!-- if -->
+  <!-- if -->
+
+    <meta property="og:site_name" content="Dylan Gregersen"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="How I Made My Blog"/>
+    <meta property="og:url" content="/blog/programming/2015/03/how-i-made-my-blog"/>
+    <meta property="og:description" content="blog pelican python web-dev summary: This is the obligatory post which all programmers with a home-made blog have to write (Ha). How I Made My Blog When I created this website using Pelican I looked at many other websites and examples (I&#39;m a master google searcher--aren&#39;t we all?). I thought I&#39;d avoid writing my own &#34;how I made this blog&#34;; however, a recent conversation with a friend convinced me that at least he would appreciate some notes about my website …"/>
+    <meta property="article:published_time" content='2015-03-04'/>
+      <meta property="article:section" content="Programming"/>
+      <meta property="article:author" content="Dylan Gregersen"/>
+
+    <!-- if -->
+
+    <!-- if -->
+
+    <!-- Bootstrap -->
+      <link rel="stylesheet" href="/static/css/bootstrap.journal.min.css" type="text/css"/>
+    <link href="/static/css/pygments/native.css" rel="stylesheet">
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- Typogrify -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/typogrify.css" rel="stylesheet">
+
+    <!-- -->
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+
+    <!-- -->
+      <link href="/static/css/global.css" rel="stylesheet">
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- -->
+      <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Dylan Gregersen ATOM Feed"/>
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- -->
+      <!-- -->
+        <!-- -->
+      <link href="/feeds/programming.atom.xml" type="application/atom+xml" rel="alternate" title="Dylan Gregersen Programming ATOM Feed"/>
+      <!-- -->
+  </head>
+
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          <a href="/" class="navbar-brand">
+Dylan Gregersen
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+              <li>
+                <a href="/research">Research</a>
+              </li>
+              <li>
+                <a href="/about">About</a>
+              </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+    </div>
+    <!-- /.navbar -->
+
+    <!-- Banner -->
+    <div class="container-fluid">
+    </div>
+    <!-- End Banner -->
+
+    <!-- Content Container -->
+    <div class="container-fluid">
+      <!--  -->
+  <section class="article-container">
+    <div class="col-sm-3" id="sidebar">
+<div class="thumbnail">
+  <p>
+    <em>"You are something the whole Universe is doing, the same way a wave is something the whole ocean is doing"</em>
+    ― Alan W. Watts
+  </p>
+  <img src="https://earthastronaut.s3.amazonaws.com/profile_photos/dylan_gregersen_paddling.jpg" class="img-rounded" alt="Photo">
+  <div class="caption">
+    Problem Solver, Python Programmer, Data Scientist, Mentor, Muscian, and Vegan.
+    <h4>
+      <a href="https://github.com/earthastronaut"><svg viewBox="64 64 896 896" focusable="false" data-icon="github" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0138.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"></path></svg></a>
+      <a href="https://www.linkedin.com/in/dylangregersen"><svg viewBox="64 64 896 896" focusable="false" data-icon="linkedin" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M847.7 112H176.3c-35.5 0-64.3 28.8-64.3 64.3v671.4c0 35.5 28.8 64.3 64.3 64.3h671.4c35.5 0 64.3-28.8 64.3-64.3V176.3c0-35.5-28.8-64.3-64.3-64.3zm0 736c-447.8-.1-671.7-.2-671.7-.3.1-447.8.2-671.7.3-671.7 447.8.1 671.7.2 671.7.3-.1 447.8-.2 671.7-.3 671.7zM230.6 411.9h118.7v381.8H230.6zm59.4-52.2c37.9 0 68.8-30.8 68.8-68.8a68.8 68.8 0 10-137.6 0c-.1 38 30.7 68.8 68.8 68.8zm252.3 245.1c0-49.8 9.5-98 71.2-98 60.8 0 61.7 56.9 61.7 101.2v185.7h118.6V584.3c0-102.8-22.2-181.9-142.3-181.9-57.7 0-96.4 31.7-112.3 61.7h-1.6v-52.2H423.7v381.8h118.6V604.8z"></path></svg></a>
+    </h4>
+  </div>
+</div>    </div>
+    <div class="col-sm-9" id="content">
+      <article>
+        <header class="page-header">
+          <h1>
+            <a href="/blog/programming/2015/03/how-i-made-my-blog" rel="bookmark" title="Permalink to How I Made My Blog">
+              How I Made My Blog
+            </a>
+          </h1>
+        </header>
+        <div class="entry-content">
+          <div class="panel">
+            <div class="panel-body"><!-- -->
+
+<footer class="post-info">
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-1" style="text-align:right;">
+      <strong>Date</strong>
+    </div>
+    <div class="col-sm-6">    <time datetime="2015-03-04T09:41:09-07:00">Wed 04 March 2015</time>
+</div>
+    <div class="col-sm-6"></div>
+  </div>
+
+  <!-- -->
+
+
+
+
+
+
+  </div>
+</footer></div>
+          </div>
+          <ul>
+<li>blog</li>
+<li>pelican</li>
+<li>python</li>
+<li>web-dev
+summary: This is the obligatory post which all programmers with a home-made blog have to write (Ha).</li>
+</ul>
+<p><br>
+<br></p>
+<h1>How I Made My Blog</h1>
+<p>When I created this website using Pelican I looked at many other websites and examples (I'm a master google searcher--aren't we all?). I thought I'd avoid writing my own "how I made this blog"; however, a recent conversation with a friend convinced me that at least he would appreciate some notes about my website generator. Hence the reason for this post.</p>
+<h1>Pelican</h1>
+<p>When I started, I wanted to host at github which only posts static content. Github uses <a href="https://help.github.com/articles/using-jekyll-with-pages/">Jekyll</a> as their static content generator. I tired it out but decided to use <a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> instead. I changed primarily because I know Python and not Ruby. I picked Pelican in particular after looking at many "Best Static Generator" reviews which ranked it high. So far I've been happy with this choice.</p>
+<h1>Getting Up and Running</h1>
+<p>By and large I put together this website by parsing through and following the <a href="http://docs.getpelican.com/en/3.5.0/">official Pelican getting started</a>. Their walk through is pretty good and I suggest using it to get going.</p>
+<hr>
+
+<h2>Install Pelican</h2>
+<p>First you need the pelican code which can be installed simply with <a href="https://pip.pypa.io/en/latest/">pip</a>. Also checkout the <a href="http://docs.getpelican.com/en/3.5.0/install.html">Installing Pelican</a> page which gives some more help with setting up pelican in a virtualenv (Recommended).</p>
+<div class="highlight"><pre><span></span><code>pip install pelican markdown
+</code></pre></div>
+
+<p>Choose a directory on your computer to put all the files</p>
+<div class="highlight"><pre><span></span><code>mkdir -p ~/projects/yoursite
+cd ~/projects/yoursite
+</code></pre></div>
+
+<p>In the new directory run <code>pelican-quickstart</code>. </p>
+<div class="highlight"><pre><span></span><code>pelican-quickstart
+</code></pre></div>
+
+<p>The quickstart asks some questions. I recommend Y for the Fabfile/Makefile and auto-reload script. The "Do you want to upload" will set up more destinations to put in the Makefile; you can add them manually later.</p>
+<h2>Set Up Directory Structure</h2>
+<p>The beauty of a static website generator is the separation of content (stuff you write) from the layouts and styles (html/css/javascript). The generator compiles all the stuff together into your html pages which can then be hosted. </p>
+<p>First, structure of your content directory (within your "~/project/yoursite" directory). I wanted a website that was not entirely blog focused (which is not the default) so I structured my website and content directory:</p>
+<div class="highlight"><pre><span></span><code><span class="n">website</span><span class="o">/</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">content</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">README</span><span class="o">.</span><span class="n">md</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">blog</span><span class="o">/</span><span class="w">   </span><span class="c1"># blog posts</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="mi">2014</span><span class="o">/</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="mi">2014</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">example_blog_post</span><span class="o">.</span><span class="n">md</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"> </span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">pages</span><span class="o">/</span><span class="w">  </span><span class="c1"># web pages which are not blog post</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">blog</span><span class="o">.</span><span class="n">md</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">about</span><span class="o">.</span><span class="n">md</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">direct</span><span class="o">/</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="o">|</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">later</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"></span>
+<span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w">   </span>
+<span class="o">|</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="k">static</span><span class="o">/</span><span class="w"></span>
+<span class="o">|</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="n">css</span><span class="o">/</span><span class="w">  </span><span class="c1"># custom css which doesn&#39;t belong to the theme</span><span class="w"></span>
+<span class="err">│</span><span class="w">       </span><span class="err">│</span><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="n">blog</span><span class="o">/</span><span class="w"></span>
+<span class="err">│</span><span class="w">       </span><span class="err">│</span><span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="mi">2014</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">example_blog_post</span><span class="o">.</span><span class="n">css</span><span class="w"></span>
+<span class="err">│</span><span class="w">       </span><span class="err">│</span><span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"> </span>
+<span class="o">|</span><span class="w">       </span><span class="err">│</span><span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"> </span>
+<span class="o">|</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="n">files</span><span class="o">/</span><span class="w">  </span><span class="c1"># static files to download</span><span class="w"></span>
+<span class="o">|</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="n">img</span><span class="o">/</span><span class="w">    </span><span class="c1"># images associated with webpage</span><span class="w"></span>
+<span class="o">|</span><span class="w">       </span><span class="err">└──</span><span class="w"> </span><span class="n">js</span><span class="o">/</span><span class="w">     </span><span class="c1"># custom javascript which doesn&#39;t belong to the theme</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">themes</span><span class="o">/</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1"># more on this later</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">plugins</span><span class="o">/</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1"># more on this later</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">pelicanconf</span><span class="o">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">publishconf</span><span class="o">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Makefile</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">fabfile</span><span class="o">.</span><span class="n">py</span><span class="w"> </span>
+<span class="err">├──</span><span class="w"> </span><span class="n">develope_server</span><span class="o">.</span><span class="n">sh</span><span class="w"></span>
+<span class="err">└──</span><span class="w"> </span><span class="n">README</span><span class="o">.</span><span class="n">md</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Add Content</h2>
+<p>To add a post you put a new file into the blog directory</p>
+<div class="highlight"><pre><span></span><code>edit content/blog/2014/2014-1-1-example_blog_post.md
+</code></pre></div>
+
+<p>The basic parts of these files are a header and content. The header is the first few lines which give info about the file; the content follows after a few blank lines.</p>
+<p>My markdown example:</p>
+<div class="highlight"><pre><span></span><code><span class="n">title</span><span class="o">:</span><span class="w"> </span><span class="n">Example</span><span class="w"></span>
+<span class="n">date</span><span class="o">:</span><span class="w"> </span><span class="n">Wed</span><span class="w"> </span><span class="n">Jan</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="w"> </span><span class="n">MST</span><span class="w"> </span><span class="mi">2014</span><span class="w"></span>
+<span class="n">template</span><span class="o">:</span><span class="w"> </span><span class="n">article</span><span class="w"></span>
+<span class="n">authors</span><span class="o">:</span><span class="w"> </span><span class="n">Me</span><span class="w"></span>
+<span class="n">status</span><span class="o">:</span><span class="w"> </span><span class="n">published</span><span class="w"></span>
+<span class="n">comments</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="n">category</span><span class="o">:</span><span class="w"> </span><span class="n">programming</span><span class="w"></span>
+<span class="n">tags</span><span class="o">:</span><span class="w"> </span><span class="n">pelican</span><span class="o">,</span><span class="w"> </span><span class="n">python</span><span class="o">,</span><span class="w"> </span><span class="n">blog</span><span class="w"></span>
+
+<span class="n">write</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">_Markdown_</span><span class="o">!</span><span class="w"></span>
+</code></pre></div>
+
+<p><strong>Quick Notes</strong>: </p>
+<ul>
+<li>don't add a space between the keyword and ':' (e.g. "title:" NOT "title :"). This took me a while to figure out cause the default doesn't parse this well.</li>
+<li>status can be 'published' or 'draft'</li>
+<li>tags must be comma separated (unless you do your own shenanigans). </li>
+</ul>
+<p>For rst posts and more information check out the <a href="http://docs.getpelican.com/en/3.5.0/content.html">Pelican Writing Content</a> page.</p>
+<p>My blog.md example:</p>
+<div class="highlight"><pre><span></span><code>edit content/pages/blog.md
+
+title: My Blog
+date: Wed Jan  1 0:0:0 MST 2014
+modified: Wed Mar  4 13:46:52 MST 2015
+template: archives
+
+# Welcome to my Blog #
+
+Here I like to talk about stuff.
+</code></pre></div>
+
+<h2>Website Settings</h2>
+<p>In a moment we'll make your new website but first we need some stuff in the 'pelicanconf.py' file. Open up with your favorite editor. Check and define the following global variables based on the structure above:</p>
+<div class="highlight"><pre><span></span><code>PATH = &#39;content&#39;
+OUTPUT_PATH = &#39;output&#39;
+STATIC_PATHS = [\
+    &#39;README.md&#39;,
+    &#39;blog&#39;,
+    &#39;static/img&#39;,
+    &#39;static/css&#39;,
+    &#39;static/js&#39;,        
+    &#39;static/files&#39;,            
+    ]
+PAGE_PATHS = [&#39;pages&#39;]
+ARTICLE_PATHS = [&#39;blog&#39;]
+ARTICLE_URL = &#39;blog/{category}/{date:%Y}/{date:%m}/{slug}.html&#39;
+ARTICLE_SAVE_AS = &#39;blog/{category}/{date:%Y}/{date:%m}/{slug}.html&#39;
+</code></pre></div>
+
+<p>These make sure that Pelican knows where all our content lives and where it should go. More on the <code>pelicanconf.py</code> in a sec</p>
+<h3>Publish/View Your Website</h3>
+<p>Finally, let's get a little dev server up and running. This happens to be as simple as </p>
+<div class="highlight"><pre><span></span><code>make devserver
+</code></pre></div>
+
+<p>A bunch of log messages pop up (fix any errors if present). Then in a web browser (like Firefox) go to <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></p>
+<p><strong>Note</strong>: the devserver keeps track of some changes to the files. However, I found that it's not always very good at updating the right stuff. So I often have to re-type <code>make devserver</code> to force a recreation of the website.</p>
+<hr>
+<hr>
+
+<h2>Changing the Theme</h2>
+<p>You can try out styling your website. Check out <a href="http://www.pelicanthemes.com/">example themes</a>, try downloading one into 'templates/<theme_name>'</p>
+<p>For example using git.</p>
+<h2>Pandoc Markdown</h2>
+<p>One head-ache I had with Pelican was with markdown. I decided I wanted to write my blogs in Markdown. In particular, the Pandoc Markdown because of the advanced handling of tables, code feilds, and references. </p>
+        </div>
+        <!-- /.entry-content -->
+<footer>
+  <hr>
+  <div class="row">
+    <div>&copy;
+      2014
+      Dylan Gregersen
+    </div>
+    <div>
+      <p>
+        <i class="fa fa-arrow-up"></i>
+        <a href="#">Back to top</a>
+      </p>
+    </div>
+  </div>
+</footer>      </article>
+    </div>
+  </section>
+
+    </div>
+
+    <!-- End Content Container -->
+
+    <!-- scripts -->
+    <div class="container-fluid">
+      <script src="/static/js/jquery.min.js"></script>
+
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="/static/js/bootstrap.min.js"></script>
+
+      <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+      <script src="/static/js/respond.min.js"></script>
+
+
+
+      <!-- include -->
+      <!-- include -->
+      <!-- include -->
+      <!-- include -->
+
+
+    </div>
+  </body>
+
+</html>

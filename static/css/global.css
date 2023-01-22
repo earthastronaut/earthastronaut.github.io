@@ -1,0 +1,84 @@
+@import url("//fonts.googleapis.com/css?family=Merriweather:300,400,600");
+@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+	font-family: "Merriweather", serif;
+}
+
+body,
+.navbar,
+.popover,
+.tooltip {
+	font-family: "Open Sans", sans-serif;
+}
+
+@media (min-width:768px) {
+    #sidebar {
+        position: fixed;
+        top: 81px;
+        bottom: 0;
+        overflow: auto;
+    }
+
+    #content.col-sm-9 {
+        float: right;
+    }
+}
+
+.navbar-brand {
+    text-transform: capitalize;
+}
+
+.thumbnail {
+    border: none;
+}
+
+footer .row {
+    display: flex;
+	justify-content: space-between;
+    padding: 0 15px;
+}
+
+footer .row:before,
+footer .row:after {
+    content: none;
+}
+
+@media (max-width:768px) {
+    #sidebar .list-group-item {
+        padding: 0;
+    }
+    .thumbnail>img {
+        float: left;
+        padding-right: 1em;
+        width: 62.5%;
+    }
+
+    .thumbnail:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Fix a problem where the small screen layout breaks if there are long strings of text without spaces. */
+    .container-fluid .col-sm-9 {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    /* Fix a problem where the last part of the content doesn't display on small screens. */
+    body {
+        padding-bottom: 22rem;
+    }
+}

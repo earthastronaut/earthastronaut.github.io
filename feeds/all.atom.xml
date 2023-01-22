@@ -1,45 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Dylan Gregersen</title><link href="https://earthastronaut.github.io/" rel="alternate"></link><link href="https://earthastronaut.github.io/feeds/all.atom.xml" rel="self"></link><id>https://earthastronaut.github.io/</id><updated>2015-03-04T19:37:15-07:00</updated><entry><title>Publishing a Pelican Project to Github Pages</title><link href="https://earthastronaut.github.io/blog/programming/2015/03/publishing-a-pelican-project-to-github-pages.html" rel="alternate"></link><updated>2015-03-04T19:37:15-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:earthastronaut.github.io,2015-03-04:blog/programming/2015/03/publishing-a-pelican-project-to-github-pages.html</id><summary type="html">&lt;h1 id="publishing-pelican-to-github-pages"&gt;Publishing Pelican to Github Pages&lt;/h1&gt;
-&lt;p&gt;When I created my personal webpage, I planned for it to be git tracked and hosted on github pages. I used Pelican to generate the static content to push to github. Reading up on &lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt; I learned they want me to push to “username.github.io, where username is your username (or organization name) on GitHub”. But the unexpected trick was that when github’s server looks at http://username.github.io it uses the master branch.&lt;/p&gt;
-&lt;p&gt;This post is about how I set up my Pelican website with git and published to http://username.github.io master branch.&lt;/p&gt;
-&lt;h2 id="tracking-your-pelican-project-with-git"&gt;Tracking Your Pelican Project with Git&lt;/h2&gt;
-&lt;p&gt;If you have some pelican project going this will add git version control. My example lives in “~/project/yoursite”.&lt;/p&gt;
-&lt;p&gt;First, create and add the following lines to “~/project/yoursite/.gitignore”&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;publishconf.py 
-output
-*.pyc
-*.pid
-cache
-__pycache__&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Next, initialize git&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cd ~/project/yoursite/  # directory of our pelican project
-git init
-git add .
-git commit -m &amp;quot;initial commit&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You’ll want to familiarize yourself with git if you haven’t already.&lt;/p&gt;
-&lt;h2 id="set-up-pelican-to-publish-to-github-pages"&gt;Set Up Pelican to Publish to Github Pages&lt;/h2&gt;
-&lt;p&gt;Now I’ll walk through setting up your Pelican project to be your primary github page. Github hosts, for free, websites with static content (explained at &lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;). You can create sub-websites for each project and one primary for your account. The primary account is located at username.github.io “where username is your username (or organization name) on GitHub”.&lt;/p&gt;
-&lt;p&gt;To set up your project on github, create the repo on github then run&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git remote add origin https://github.com/username/username.github.io # where username is your username (or organization name) on GitHub.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;When you create your username.github.io repository github hosts the content on your master branch. But now there’s &lt;strong&gt;a problem:&lt;/strong&gt; But your master branch is also where all your pelican development is and the what you want to publish is probably in an output directory.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;My solution:&lt;/strong&gt; Have my primary development in a branch called pelican and then push my final content to the master. This is not standard but I think it’s pretty elegant.&lt;/p&gt;
-&lt;p&gt;To implement create a second branch (your new master) called ‘pelican’ (or whatever you actually want to use)&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git checkout -b pelican&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now to push to the master branch their’s a handy tool called ghp-import. You can install via pip:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;pip install ghp-import&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If you’ve set up pelican project with a Makefile (recommended) then you can simply edit that file by adding:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;GITHUB_PAGES_BRANCH=master&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If not you can create a make file and add the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;OUTPUTDIR=output
-GITHUB_PAGES_BRANCH=master
-github: publish
-    ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
-    git push origin $(GITHUB_PAGES_BRANCH)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now when you type &lt;code&gt;make github&lt;/code&gt;, it’ll make the pelican content out to the master branch and push it to github. Then you can go to [https://username.github.io] to view your website from anywhere! Nifty, huh?&lt;/p&gt;
-</summary><category term="python"></category><category term="pelican"></category><category term="git"></category><category term="web-dev"></category><category term="github"></category></entry><entry><title>Practical Tools for Matplotlib Colormaps</title><link href="https://earthastronaut.github.io/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html" rel="alternate"></link><updated>2014-12-18T09:28:50-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:earthastronaut.github.io,2014-12-18:blog/programming/2014/12/practical-tools-for-matplotlib-colormaps.html</id><summary type="html">&lt;h1 id="color-maps-rock"&gt;Color Maps Rock!&lt;/h1&gt;
-&lt;p&gt;I like colorful plots. They may cost &lt;a href="http://hyperboleandahalf.blogspot.com/2010/04/alot-is-better-than-you-at-everything.html"&gt;alot&lt;/a&gt; to publish in a research journal but they’re just so pretty. Quite a few blogs have been written ranting about rainbow colormaps and also about how to choose really good colormaps.&lt;/p&gt;
-&lt;p&gt;This blog is devoted to practical tools I use to help me with colormapping. The actual code is in a github gist of &lt;a href="https://gist.github.com/earthastronaut/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Dylan Gregersen</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2014-12-18T09:28:50-07:00</updated><subtitle>"You are something the whole Universe is doing, the same way a wave is something the whole ocean is doing" ― Alan W. Watts</subtitle><entry><title>Practical Tools for Matplotlib Colormaps</title><link href="/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps" rel="alternate"></link><published>2014-12-18T09:28:50-07:00</published><updated>2014-12-18T09:28:50-07:00</updated><author><name>Dylan Gregersen</name></author><id>tag:None,2014-12-18:/blog/programming/2014/12/practical-tools-for-matplotlib-colormaps</id><summary type="html">&lt;p&gt;Choosing a good colormap is hard. Jet always looks pretty but just try printing in black &amp;amp; white and everything you thought you knew about your data changes. I have several resources I use when picking a good colormap. Click the Read more to find out more.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I like colorful plots. They may cost &lt;a href="http://hyperboleandahalf.blogspot.com/2010/04/alot-is-better-than-you-at-everything.html"&gt;alot&lt;/a&gt; to publish in a research journal but they're just so pretty. Quite a few blogs have been written ranting about rainbow colormaps and also about how to choose really good colormaps.&lt;/p&gt;
+&lt;p&gt;This blog is devoted to practical tools I use to help me with colormapping. The actual code is in a github gist of &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;Some other useful colormap links&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://matplotlib.org/users/colormaps.html"&gt;Maplotlib: Choosing Colormaps&lt;/a&gt;&lt;/li&gt;
@@ -51,96 +14,533 @@ github: publish
 &lt;li&gt;&lt;a href="http://colorbrewer2.org/"&gt;Colorbrewer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://paletton.com/#uid=1000u0kllllaFw0g0qFqFg0w0aF"&gt;Paletton&lt;/a&gt; - a really cool color scheme tool which includes tools to filter by colorblindness&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;br/&gt; &lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;Below is a really cool colormap image of the Milky Way’s magnetic field &lt;a href="http://public.planck.fr/resultats/249-planck-revele-l-invisible"&gt;captured by the Planck spacecraft&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Below is a really cool colormap image of the Milky Way's magnetic field &lt;a href="http://public.planck.fr/resultats/249-planck-revele-l-invisible"&gt;captured by the Planck spacecraft&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src="/static/img/blog/Plank-Galactic-Magentic-Field-640x640.jpg" alt="Plank Galactic Magnetic Field" style="height: 100%; width: 100%; max-height:500px; "&gt;&lt;/img&gt;&lt;/p&gt;
-&lt;h2 id="colormap-reference"&gt;Colormap Reference&lt;/h2&gt;
-&lt;p&gt;Several colormap references scripts/functions exist; mine is better (haha). In my &lt;a href="https://gist.github.com/earthastronaut/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; file I have a function called &lt;code&gt;show_mpl_cmaps&lt;/code&gt;. This uses a lookup table to group together relevant colormaps and a graifier to also show what that colormap looks like in gray scale. I’ve added this to my PYTHONSTARTUP script so when I need a quick reference I can just open a terminal and type &lt;code&gt;show_mpl_cmaps()&lt;/code&gt; to get:&lt;/p&gt;
-&lt;p&gt;&lt;img src="/static/img/blog/mpl_colormaps.png" alt="Matplotlib Colormaps" /&gt;{}&lt;/p&gt;
-&lt;h2 id="truncating-colormaps"&gt;Truncating Colormaps&lt;/h2&gt;
+&lt;h2&gt;Colormap Reference&lt;/h2&gt;
+&lt;p&gt;Several colormap references scripts/functions exist; mine is better (haha). In my &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; file I have a function called &lt;code&gt;show_mpl_cmaps&lt;/code&gt;. This uses a lookup table to group together relevant colormaps and a graifier to also show what that colormap looks like in gray scale. I've added this to my PYTHONSTARTUP script so when I need a quick reference I can just open a terminal and type &lt;code&gt;show_mpl_cmaps()&lt;/code&gt; to get:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Matplotlib Colormaps" src="/static/img/blog/mpl_colormaps.png"&gt;{}&lt;/p&gt;
+&lt;h2&gt;Truncating Colormaps&lt;/h2&gt;
 &lt;p&gt;Search Keywords: Reducing color range, shorten colormap, remove white from colormap&lt;/p&gt;
 &lt;p&gt;I searched for a while and could find something that made a colormap cut off certain colors. For example, taking the &lt;code&gt;plt.cm.rainbow&lt;/code&gt; and reducing it to only blue to orange (I know rainbow is terrible, but humor me). Or you want to use &lt;code&gt;plt.cm.gist_heat&lt;/code&gt; but cut off the white top.&lt;/p&gt;
-&lt;p&gt;I hope if you’re reading this I can save you some time in having already worked out a good way to truncate a colormap. It’s a pretty short function I called &lt;code&gt;truncate_cmap&lt;/code&gt; which I’ve included in &lt;a href="https://gist.github.com/earthastronaut/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; gist.&lt;/p&gt;
+&lt;p&gt;I hope if you're reading this I can save you some time in having already worked out a good way to truncate a colormap. It's a pretty short function I called &lt;code&gt;truncate_cmap&lt;/code&gt; which I've included in &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; gist.&lt;/p&gt;
 &lt;div class="row mpl-cmap"&gt;
 &lt;div class="span6"&gt;
-&lt;div class="cmap-image-header"&gt;
-&lt;p&gt;
-plt.colormap(plt.imshow(cnts,cmap=plt.cm.rainbow))
-&lt;/p&gt;
+&lt;div class="cmap-image-header"&gt;&lt;p&gt;plt.colormap(plt.imshow(cnts,cmap=plt.cm.rainbow))&lt;/p&gt;
 &lt;/div&gt;
 &lt;img src="/static/img/blog/cmap_rainbow.svg" alt="Colormap"&gt;&lt;/img&gt;
 &lt;/div&gt;
 &lt;div class="span6"&gt;
-&lt;div class="cmap-image-header"&gt;
-&lt;p&gt;
-plt.colormap(plt.imshow(cnts,cmap=truncate_cmap(plt.cm.rainbow,n_min=40,n_max=210))
-&lt;/p&gt;
+&lt;div class="cmap-image-header"&gt;&lt;p&gt;plt.colormap(plt.imshow(cnts,cmap=truncate_cmap(plt.cm.rainbow,n_min=40,n_max=210))&lt;/p&gt;
 &lt;/div&gt;
 &lt;img src="/static/img/blog/cmap_rainbow_truncated.svg" alt="Truncated Colormap"&gt;&lt;/img&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;h2 id="the-monocolormap"&gt;The MonoColorMap&lt;/h2&gt;
-&lt;p&gt;The final tool I’ll leave you with is my own…&lt;code&gt;MonoColormap&lt;/code&gt;. It’s a silly colormap which always returns the same color (hence mono-color). You instantiate it &lt;code&gt;cmap=MonoColormap('r')&lt;/code&gt; and can use any maplotlib color or hex color. I found it useful when I wanted to overplot some image but just have it gray out with some opacity. It’s also located in &lt;a href="https://gist.github.com/earthastronaut/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; gist.&lt;/p&gt;
-&lt;h2 id="in-conclusion"&gt;In Conclusion…&lt;/h2&gt;
-&lt;p&gt;Hope this helps you with colormaps. If you didn’t figure out from the post, all the functions and code are publicly available as a github gist at &lt;a href="https://gist.github.com/earthastronaut/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt;&lt;/p&gt;
-</summary><category term="plotting"></category><category term="programming"></category><category term="python"></category><category term="matplotlib"></category><category term="colormaps"></category></entry><entry><title>Execfile Lives!</title><link href="https://earthastronaut.github.io/blog/programming/2014/10/execfile-lives.html" rel="alternate"></link><updated>2014-10-10T19:05:59-06:00</updated><author><name>Dylan Gregersen</name></author><id>tag:earthastronaut.github.io,2014-10-10:blog/programming/2014/10/execfile-lives.html</id><summary type="html">&lt;h1 id="execfile-lives"&gt;Execfile Lives!&lt;/h1&gt;
-&lt;p&gt;One of the changes in Python 3 is the deprecation of the builtin function &lt;code&gt;execfile&lt;/code&gt;. This was done with very good intentions and lots of thought. I mostly agree with the choice but here’s why I choose to resurrect…&lt;code&gt;execfile&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id="deprecating-execfile-was-good"&gt;Deprecating &lt;code&gt;execfile&lt;/code&gt; was Good&lt;/h2&gt;
-&lt;!-- First off, `reload` was just taken out of the main namespace. You can still access it using `from importlib import reload`. I'm not exactly sure the reason (if you know please comment), but most likely it was to clean up the main python namespace. Modules will automatically be loaded each time you run a script afresh. Most of the time this is enough and requiring a developer to go to the standard library package importlib is nice. 
+
+&lt;h2&gt;The MonoColorMap&lt;/h2&gt;
+&lt;p&gt;The final tool I'll leave you with is my own...&lt;code&gt;MonoColormap&lt;/code&gt;. It's a silly colormap which always returns the same color (hence mono-color). You instantiate it &lt;code&gt;cmap=MonoColormap('r')&lt;/code&gt; and can use any maplotlib color or hex color. I found it useful when I wanted to overplot some image but just have it gray out with some opacity. It's also located in &lt;a href="https://gist.github.com/astrodsg/09bfac1b68748967ed8b#file-mpl_colormap_tools"&gt;Matplotlib Colormap Tools&lt;/a&gt; gist.&lt;/p&gt;</content><category term="Programming"></category><category term="plotting"></category><category term="programming"></category><category term="python"></category><category term="matplotlib"></category><category term="colormaps"></category></entry><entry><title>Supermongo to Python</title><link href="/blog/astronomy/2014/10/supermongo-to-python" rel="alternate"></link><published>2014-10-25T19:05:59-06:00</published><updated>2014-10-25T19:05:59-06:00</updated><author><name>Dylan Gregersen</name></author><id>tag:None,2014-10-25:/blog/astronomy/2014/10/supermongo-to-python</id><summary type="html">&lt;p&gt;A tutorial for switching from Supermongo to Python&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Supermongo (SM) is a domain-specific programming language for creating plots. It was first written in 1987. Astronomers adopted this language as a primary plotting package for data analysis. Many groundbreaking discoveries have been seen using supermongo plots. However, new tools exist for plotting which have evolved from first plotting languages like Supermongo. These new tools provide methods for creating plots with fewer lines of code. They provide better integration into other programming languages and code.&lt;/p&gt;
+&lt;p&gt;Matplotlib is a domain-specific plotting library for the general-purpose programming language Python. This library provides all the plotting capabilities of Supermongo and more. This post is to provide a 1-to-1 guide for Supermongo experts to apply their knowledge in Python with Matplotlib.&lt;/p&gt;
+&lt;p&gt;Other Python plotting packages include : bokeh, plotly, vispy&lt;/p&gt;
+&lt;!-- __TODO: outline__
+
+[General Comparison ](##General-Comparison)
+[Getting Started With Supermongo-Python](##Getting-Started-With-Supermongo-Python)
  --&gt;
-&lt;p&gt;&lt;code&gt;execfile&lt;/code&gt; takes a file, compiles it into a code object (under the hood), and executes each line of code in turn every time it’s called. At one point, I used this in the way feared by the core Python developers: to include other code. I have two files “file1.py” and “file2.py”; I want to include “file1.py” into “file2.py” to execute the lines; So I do the following:&lt;/p&gt;
-&lt;p&gt;“file2.py”&lt;/p&gt;
-&lt;pre class="sourceCode python"&gt;&lt;code class="sourceCode python"&gt;...
-&lt;span class="dt"&gt;execfile&lt;/span&gt;(&lt;span class="st"&gt;&amp;quot;file1.py&amp;quot;&lt;/span&gt;)
-...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;em&gt;THIS IS BAD!&lt;/em&gt; Primarily because you have no idea what variables in “file1.py” are now in the current namespace. It makes it hard to read and debug.&lt;/p&gt;
-&lt;p&gt;To include extra code correctly you should locate “file1.py” into your PYTHONPATH and use &lt;code&gt;import file1&lt;/code&gt; to access all the variables. You can use &lt;code&gt;imp.reload&lt;/code&gt; if you want to interactively update data from the file&lt;/p&gt;
-&lt;h2 id="deprecating-execfile-was-bad-and-how-to-resurrect"&gt;Deprecating &lt;code&gt;execfile&lt;/code&gt; was Bad and how to Resurrect&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Entirely for interactively use.&lt;/strong&gt; For my research, I primarily use Python as an interactive shell to type in the commands I want executed then dynamically investigate the results. I explicitly type &lt;code&gt;execfile&lt;/code&gt; onto the command line so that it will be executed in the interpretor and all the variables will be in the main namespace. Then I can segment parts of the script to put into other scripts which I can import.&lt;/p&gt;
-&lt;p&gt;A few different methods have been discussed on other blogs. The ones I found lead me on the right track but required a few modifications. The method below was what finally worked for me. I’ve included it in my PYTHONSTARTUP file with a conditional checking &lt;code&gt;sys.version[0] == &amp;quot;3&amp;quot;&lt;/code&gt;.&lt;/p&gt;
-&lt;pre class="sourceCode python"&gt;&lt;code class="sourceCode python"&gt;&lt;span class="kw"&gt;def&lt;/span&gt; &lt;span class="dt"&gt;execfile&lt;/span&gt;(filepath,  &lt;span class="dt"&gt;globals&lt;/span&gt;=&lt;span class="ot"&gt;None&lt;/span&gt;, &lt;span class="dt"&gt;locals&lt;/span&gt;=&lt;span class="ot"&gt;None&lt;/span&gt;):
-    &lt;span class="ch"&gt;import&lt;/span&gt; sys
-    &lt;span class="kw"&gt;if&lt;/span&gt; &lt;span class="dt"&gt;globals&lt;/span&gt; is &lt;span class="ot"&gt;None&lt;/span&gt;:
-        &lt;span class="dt"&gt;globals&lt;/span&gt; = sys._getframe(&lt;span class="dv"&gt;1&lt;/span&gt;).f_globals
-    &lt;span class="kw"&gt;if&lt;/span&gt; &lt;span class="dt"&gt;locals&lt;/span&gt; is &lt;span class="ot"&gt;None&lt;/span&gt;:
-        &lt;span class="dt"&gt;locals&lt;/span&gt; = sys._getframe(&lt;span class="dv"&gt;1&lt;/span&gt;).f_locals
-    &lt;span class="kw"&gt;with&lt;/span&gt; &lt;span class="dt"&gt;open&lt;/span&gt;(filepath, &lt;span class="st"&gt;&amp;quot;r&amp;quot;&lt;/span&gt;) &lt;span class="ch"&gt;as&lt;/span&gt; f:
-        &lt;span class="kw"&gt;try&lt;/span&gt;:
-            code = &lt;span class="dt"&gt;compile&lt;/span&gt;(f.read()+&lt;span class="st"&gt;&amp;quot;&lt;/span&gt;&lt;span class="ch"&gt;\n&lt;/span&gt;&lt;span class="st"&gt;&amp;quot;&lt;/span&gt;,os.path.abspath(filepath),&lt;span class="st"&gt;&amp;#39;exec&amp;#39;&lt;/span&gt;)
-            &lt;span class="dt"&gt;exec&lt;/span&gt;(code,&lt;span class="dt"&gt;globals&lt;/span&gt;,&lt;span class="dt"&gt;locals&lt;/span&gt;)
-        &lt;span class="kw"&gt;except&lt;/span&gt; &lt;span class="ot"&gt;KeyboardInterrupt&lt;/span&gt;:
-            &lt;span class="kw"&gt;return&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Hope this helps!&lt;/p&gt;
-</summary><category term="python"></category><category term="python3"></category><category term="programming"></category><category term="workflow"></category></entry><entry><title>Python 3 All the Things!</title><link href="https://earthastronaut.github.io/blog/programming/2014/10/python-3-all-the-things.html" rel="alternate"></link><updated>2014-10-09T19:05:59-06:00</updated><author><name>Dylan Gregersen</name></author><id>tag:earthastronaut.github.io,2014-10-09:blog/programming/2014/10/python-3-all-the-things.html</id><summary type="html">&lt;p&gt;&lt;br/&gt; &lt;br/&gt;&lt;/p&gt;
-&lt;h1 id="python-3-a-language-for-the-future"&gt;&lt;strong&gt;Python 3 : A Language for the Future&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;Yesterday gave a talk at &lt;a href="http://www.slcpy.com"&gt;SLCPython Meetup&lt;/a&gt; Group about Python3. When I agreed to give this talk I had already read through many of the pages of changes (e.g. &lt;a href="https://docs.python.org/3.0/whatsnew/3.0.html"&gt;What’s new in Python 3&lt;/a&gt;) and felt like I had a pretty good understanding of the changes. The thing I didn’t realize was how much I would be learning about unicode.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/earthastronaut/Python2to3"&gt;Click here for Resources from my talk&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;h1 id="why-unicode-is-a-step-forward"&gt;&lt;strong&gt;Why Unicode is a Step Forward&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;Python 2 had several implicit uses of &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;ASCII&lt;/a&gt; encoding/decoding. ASCII was the first, widely accepted system for encoding human language (i.e. English) to computer bytes. This process is necessary because humans don’t express themselves well in bytes and computers don’t do well with language.&lt;/p&gt;
-&lt;p&gt;Many human languages exist. Each has its own ways to express ideas. As computers have evolved and become used all around the globe the need for computers to encode/decode more than just English is paramount. The development of the &lt;a href="https://en.wikipedia.org/wiki/Unicode"&gt;Unicode&lt;/a&gt; system characters is a major step to solving this problem. The next step is for developers to implement Unicode as a foundation for computer systems. This step will make computers more accessible to people of all backgrounds and cultures.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="It's a Unicode Party (Sorry this is mostly white folk, but it's fun gif)" src="https://earthastronaut.github.io/static/img/blog/its_a_party.gif" style="width: 50%; display: inline-block;"/&gt; &lt;img alt="Unicode Hello World" src="https://earthastronaut.github.io/static/img/blog/hello_world_all.png" style="width: 50%; display: inline-block; float:right;"/&gt;&lt;/p&gt;
-&lt;h1 id="python-adoption-of-unicode"&gt;&lt;strong&gt;Python Adoption of Unicode&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;Unicode handling is the primary reason for the break in backwards compatibility. In the words of core developer &lt;a href="http://python-notes.curiousefficiency.org/en/latest/python3/questions_and_answers.html"&gt;Nick Coghlan&lt;/a&gt; “Fixing [Unicode handling bugs] within the constraints of the Python 2 text model is considered too hard to be worth the effort.”&lt;/p&gt;
-&lt;p&gt;The new text model in Python 3 treats all text as either byte arrays (machine language) or Unicode (human language(s)) with more explicit encoding/decoding. The diagram which helped me was this:&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://earthastronaut.github.io/static/img/blog/unicode_sandwich.jpg" alt="Unicode Sandwich" style="width:60%;"/&gt;&lt;/p&gt;
-&lt;p&gt;On the outside of the sandwich there’s the computer and byte storage, on the inside is the Unicode which humans understand.&lt;/p&gt;
-&lt;p&gt;This new text model also allows people to write code using any Unicode character. For example, &lt;a href="https://github.com/renyuanL/pythonTurtleInChinese"&gt;these scripts&lt;/a&gt; published on github use chinese characters (pretty fracking cool).&lt;/p&gt;
-&lt;h1 id="fixing-up-loose-ends"&gt;&lt;strong&gt;Fixing Up Loose Ends&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;Since the core developers broke backwards compatibility anyway, this has been a great opportunity to fix up many of the inconsistencies and gotcha’s of Python 2. These are the changes most of us will notice. Things like maing &lt;code&gt;print&lt;/code&gt; a function or the deprecation of many functions and class methods (like &lt;code&gt;raw_input&lt;/code&gt; or &lt;code&gt;dict.iterkeys&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;I found it useful to look online at several of the “what’s new guides”. I think &lt;a href="http://docs.pythonsprints.com/python3_porting/py-porting.html"&gt;Brian Curtin’s Porting Guide&lt;/a&gt; is a nice and succinct place to start.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;&lt;img alt="Python3 Wants You" src="https://earthastronaut.github.io/static/img/blog/Python3_wants_you.png" style="margin-top:80px; margin-bottom: 30px; height: 20%;"/&gt;&lt;/p&gt;
-&lt;h1 id="now-is-the-time"&gt;&lt;strong&gt;Now is the Time!&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;Python is a powerful language mostly because of it’s libraries build by the community. The fear was that these packages would have trouble converting to Python3 (maybe never do) and that would be the end of Python. However, it seams to me that fear is no longer valid. By several measures, we’re now at 75% support of Python3 by major libraries. One of these measures, is the &lt;a href="http://py3readiness.org/"&gt;Python 3 Readiness&lt;/a&gt; site which looks at the top 360 &lt;code&gt;pip&lt;/code&gt; packages and the adoption of Python3.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://py3readiness.org/"&gt; &lt;img alt="Python3 Readiness" src="https://earthastronaut.github.io/static/img/blog/Python3_Readiness.png"/&gt; &lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;With almost all major libraries now supporting Python 3, it’s up to the rest of us to adopt this new language. Good luck!&lt;/p&gt;
-&lt;h1 id="other-online-materials"&gt;Other Online Materials&lt;/h1&gt;
+
+&lt;hr&gt;
+&lt;h2&gt;General Comparison&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Variables:&lt;/strong&gt; In Supermongo all variables are global so wherever you change them, within any macro, they change everywhere else. In Python variables have scope. You can use the same variable name in mulitple functions and be sure that they will act independantly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Plot States:&lt;/strong&gt; In Supermongo you have a single plot state which you update with the interactive commands. Matplotlib also uses a plot state which you edit with commands.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Object Oriented:&lt;/strong&gt; Supermongo is a procedural programming language. You write out all the steps and they execute in that order. Python is object oriented meaning you can create data objects and write them into procedures. This method is how your operating system is built and is extremely useful.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Community Support:&lt;/strong&gt; If you've ever searched the internet for help with Supermongo (chances are you have if you're reading this) you've come across a handful of useful sites: The &lt;a href="http://www.astro.princeton.edu/~rhl/sm/"&gt;SM manual&lt;/a&gt;, &lt;a href="http://www.astro.caltech.edu/~apeter/sm/basic.html"&gt;Annika Peter's Guide&lt;/a&gt;, &lt;a href="http://astroweb.astr.cwru.edu/craig/sm/plot_sm.html"&gt;Craig Rudick's Tutorial&lt;/a&gt; and &lt;a href="http://www.rebeccastanek.com/super/"&gt;Rebecca Stanek's Guide&lt;/a&gt;. These resources and only a few others are the mainstay of the Supermongo online support. &lt;/p&gt;
+&lt;p&gt;By contrast the community supporting Matplotlib is immense. Not only is it developed by many people to have lots of functionality, it also has a large user base. If you are unsure how to make some plot thing, a quick internet search often pulls up many solutions. &lt;/p&gt;
+&lt;!-- TODO look up main matplotlib repo --&gt;
+
+&lt;h2&gt;Python requirements&lt;/h2&gt;
+&lt;p&gt;Because general purpose language you'll need specific subpackages. For this tutorial:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="https://docs.python.org/3.0/whatsnew/3.0.html"&gt;What’s New in Python 3&lt;/a&gt; – for most of the Python 2.7 to Python 3 changes.&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://docs.python.org/3/whatsnew/"&gt;What’s New&lt;/a&gt; – for a VERY long list of everything new (though check out the dense but “short” summary)&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://nedbatchelder.com/text/unipain.html"&gt;Pragmatic Unicode talk/essay&lt;/a&gt; – or “Why Python 3 Exists” - Coghlan&lt;/li&gt;
+&lt;li&gt;maplotlib&lt;/li&gt;
+&lt;li&gt;numpy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Hopefully, these packages came with your installation of Python. You can also install them using the command line utility &lt;code&gt;pip&lt;/code&gt; (e.g. &lt;code&gt;pip install numpy&lt;/code&gt;)
+This tutorial will work with both Python 2 and 3. &lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+&lt;h3&gt;Working interactively&lt;/h3&gt;
+&lt;p&gt;In Supermongo all your plotting is done either interactively (you type and the plot is modified) or using a script. In Python you do the same.&lt;/p&gt;
+&lt;p&gt;To use the interactive mode, on the command line type &lt;code&gt;python&lt;/code&gt; (better yet try out &lt;code&gt;ipython&lt;/code&gt; for more interactive fun). Now you should have a new prompt, probably with '&amp;gt;&amp;gt;&amp;gt;' which you type your python code. (Check out TODO for a python tutorial)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;  
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  
+&lt;span class="c1"&gt;# comment&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot; String doc &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot; value &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt; = &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here's some comparisons of interactive mode. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Supermongo&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;div X11            
+set x = {2,3}      
+set y = {5,10}     
+con x y            
+xlabel time        
+ylabel temperature 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Python&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pylab&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;    
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;                         
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;                        
+&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                         
+&lt;span class="n"&gt;xlabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;time&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                    
+&lt;span class="n"&gt;ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;temperature&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;             
+&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The remainder of the tutorial I don't use &lt;code&gt;from matplotlib.pylab import *&lt;/code&gt; and instead use &lt;code&gt;import matplotlib.pylab as plt&lt;/code&gt; then commands like &lt;code&gt;plt.plot&lt;/code&gt;. The reason has to do with how many named things there are and to allow me to make my own &lt;code&gt;plot&lt;/code&gt; function different from the default &lt;code&gt;plt.plot&lt;/code&gt; function. Basically, it's good coding practice.&lt;/p&gt;
+&lt;h3&gt;Writing Scripts&lt;/h3&gt;
+&lt;p&gt;Both languages allow you to write a script to execute commands. If you're not doing this you really should. In a nut shell, you just write the lines you would type into the interactive mode into a text file and then execute that file. You will want to use &lt;a href="https://www.gnu.org/software/emacs/"&gt;Emacs&lt;/a&gt;, &lt;a href="http://www.sublimetext.com/"&gt;Sublime Text&lt;/a&gt;, &lt;a href="http://www.barebones.com/products/textwrangler/"&gt;TextWrangler&lt;/a&gt; or some equivalent text editor.&lt;/p&gt;
+&lt;p&gt;With Supermongo you write a script with at least one macro, for example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;"script.sm"&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;main_macro 
+    dev x11
+    ctype white
+    set x=0.0,10.0,1.0
+    set y=x**2
+    lim x y 
+    box
+    con x y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then startup Supermongo using &lt;code&gt;sm&lt;/code&gt; enter &lt;code&gt;macro read script.sm&lt;/code&gt; and then &lt;code&gt;main_macro&lt;/code&gt; to execute.&lt;/p&gt;
+&lt;p&gt;For Python you write a script similarly &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;"script.py"&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pylab&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;10.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;1.0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you can run it with &lt;code&gt;python script.py&lt;/code&gt;.
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Comparisons of Supermongo and Python Plotting&lt;/h2&gt;
+&lt;p&gt;Plotting libraries implement functions to display views of data. One of the basic views is comparing one data parameter (say X) against another (say Y) and just plotting the intersecting points (a.k.a. a scatter plot). In this section, I make direct comparisons of Supermongo to Python plotting methods. &lt;/p&gt;
+&lt;h3&gt;Adding items to plots&lt;/h3&gt;
+&lt;p&gt;Both plotting packages create some plot axes which you can then add views of your data to. &lt;/p&gt;
+&lt;p&gt;Both plotting packages have methods for adding XY data as lines, points, and with errorbars. Below is the side by side comparison. &lt;/p&gt;
+&lt;h4&gt;Plot Lines&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;connect&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Plot Line&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;line x1 y1 x2 y2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="n"&gt;y1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Plot Points&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;points x y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;              
+&lt;span class="c1"&gt;# or use                      &lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;linestyle&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Plot Errorbars&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;errory x y yerr
+errorx x y xerr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errorbar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;yerr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yerr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;         
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errorbar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;xerr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;xerr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;         
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;errobar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;xerr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;xerr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;yerr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yerr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Plot Horizontal Line&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;hzline y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;axhline&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Plot Vertical Line&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;vtline x
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;axvline&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Plot Rectangle&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;relocate x1 y1 
+draw x1 y2     
+draw x2 y2     
+draw x2 y1     
+draw x1 y1     
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;rec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Rectangle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y1&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="n"&gt;x2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x1&lt;/span&gt;&lt;span class="p"&gt;),(&lt;/span&gt;&lt;span class="n"&gt;y2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gca&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_patch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rec&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Layout Axis Labels&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;toplabel title_of_plot
+xlabel label_name
+ylabel label_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;title_of_plot&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xlabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;label_name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;label_name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Layout Add Text&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;relocate x y    
+label label_text
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;label_text&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Layout Legends&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;# Draw Rectangle box
+relocate xpt= ypt   
+# Set ptype,ctype   
+dot                 
+relocate xpt+dx ypt 
+label Item Label    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# just add label keyword        &lt;/span&gt;
+&lt;span class="c1"&gt;# to your plot call             &lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Item Label&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;                    
+&lt;span class="c1"&gt;# use help(plt.legend) to find  &lt;/span&gt;
+&lt;span class="c1"&gt;# out about keywords            &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Plot legends are a pain in Supermongo. If you want a bounding box you need to draw the rectangle yourself specifying every corner. Then you have to specify the exact positions of each label, draw a point with the correct styles at the correct location, then add the text slightly offset. If you want to add/remove
+labels or if points styles change then you're often thrown into chaos. (Of course you can write macros, but why? when Python makes it so easy!)&lt;/p&gt;
+&lt;p&gt;The python &lt;code&gt;plt.legend&lt;/code&gt; function looks for any plot item you added a lable=? keyword argument to. This includes all lines and points as well as patches like plt.Rectangle and plt.Circle. It's also easy to manipulate the position using the loc=? keyword of &lt;code&gt;plt.legend&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Controlling Plot Styles&lt;/h3&gt;
+&lt;p&gt;In Supermongo you must set the styles globally before adding them to the plot. This can lead to frustrating bugs if their out of order&lt;/p&gt;
+&lt;p&gt;This one may or may not be red points:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;points x y 
+ctype red
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This causes the points to be red:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ctype red
+points x y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In Python you set the plot parameters at the same time you add the item. You do this using keywords in the function call.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can find out about all the keywords by typing &lt;code&gt;help(plt.scatter)&lt;/code&gt; in the Python terminal or by using an internet search (the internet is your friend).
+&lt;em&gt;Caveat:&lt;/em&gt; Matplotlib has an rc file that sets some global variables. You can learn more about it &lt;a href="http://matplotlib.org/users/customizing.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Alright, here comes the one to one of common styles you'll want to manipulate. The Python answers I'm going to use the most common function; Note though, Matplotlib has some inconsistencies with names and so you should refer to the internet or help if you run into problems in your own implementation.&lt;/p&gt;
+&lt;h4&gt;Point Color&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ctype red 
+ctype red 
+points x y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      
+&lt;span class="c1"&gt;# hex colors work           &lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#DC322F&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Point Style&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ptype 10 3    
+ptype 10 3    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;marker&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;o&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;marker&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;o&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Point Size&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;expand 1.5
+expand 1.5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Line Color&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;ctype&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;red&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;
+&lt;span class="nv"&gt;ctype&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;red&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;
+&lt;span class="k"&gt;connect&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      
+&lt;span class="c1"&gt;# hex colors work            &lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;#DC322F&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Line Style&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;ltype&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;
+&lt;span class="nv"&gt;ltype&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;
+&lt;span class="k"&gt;connect&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;x&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;y&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;linestyle&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;linestyle&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="c1"&gt;# or the shortcut           &lt;/span&gt;
+ &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;ls&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;--&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;       
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Line Width&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;lw 7
+lw 7
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lw&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;lw&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;More with Matplotlib&lt;/h4&gt;
+&lt;p&gt;In addition to the side by side comparison matplotlib provides you additional ways to plot your data and manipulate your figures.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/shapes_and_collections/scatter_demo.html"&gt;Scatter Points with Color and Size&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- * [Plot Annotations](http://matplotlib.org/examples/pylab_examples/annotation_demo2.html) --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/pylab_examples/fancyarrow_demo.html"&gt;Arrows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/pylab_examples/hist2d_demo.html"&gt;2D Histograms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/pylab_examples/contour_demo.html"&gt;Contours&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/pylab_examples/image_interp.html"&gt;2D Images&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/statistics/boxplot_demo.html"&gt;Box Plots&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- * [Steam Plots](http://matplotlib.org/examples/images_contours_and_fields/streamplot_demo_features.html) --&gt;
+&lt;!-- * [Radar Charts](http://matplotlib.org/examples/api/radar_chart.html) --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/mplot3d/contourf3d_demo2.html"&gt;3D Contours&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://matplotlib.org/examples/widgets/slider_demo.html"&gt;Interactive Plots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;And much more! Check out the &lt;a href="http://matplotlib.org/gallery.html"&gt;Matplotlib Gallery&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Modifying Plot Properties&lt;/h3&gt;
+&lt;p&gt;In addition to add items to a plot you want to manipulate properties of the plot itself. For example, you often want to re-size the bounds of the plot.&lt;/p&gt;
+&lt;p&gt;It's important to talk about the figure. In Supermongo you only ever have one figure which you can add multiple sub-plots to but usually only one. In Matplotlib you have the option to create multiple figures if you store &lt;/p&gt;
+&lt;h4&gt;Figure and Plot&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;page
+box
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fig&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;figure&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_subplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# ax = plt.gca() for shortcut&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Multipanel Plot&lt;/h4&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;page
+window 2 2 1 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fig&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;figure&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_subplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; For Python, storing the plot in &lt;code&gt;ax&lt;/code&gt; is not necessary but it's a best practice to use matplotlib objects. &lt;/p&gt;
+&lt;!-- TODO: add  --&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;For multipanel plots Supermongo uses the &lt;code&gt;window&lt;/code&gt; command with arguments &lt;strong&gt;[&lt;em&gt;number of columns&lt;/em&gt;] [&lt;em&gt;number of rows&lt;/em&gt;] [&lt;em&gt;x-index&lt;/em&gt;] [&lt;em&gt;y-index&lt;/em&gt;]&lt;/strong&gt;. &lt;code&gt;window 2 2 1 2&lt;/code&gt; indicates 2 rows 2 columns and the current plot is the bottom-right.&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;In Matplotlib there are several ways to accomplish this (add_subplot,plt.subplots,gridspec). I commonly create a figure &lt;code&gt;fig = plt.figure()&lt;/code&gt; and add a subplot &lt;code&gt;ax = fig.add_subplot(1,1,1)&lt;/code&gt;. The arguments are &lt;strong&gt;[&lt;em&gt;number of rows&lt;/em&gt;] [&lt;em&gt;number of columns&lt;/em&gt;] [&lt;em&gt;current plot&lt;/em&gt;]&lt;/strong&gt;. The current plot number starts counting at 1 from the top-left then continues as though you were reading English from left to right, top to bottom. To get the bottom right plot from the Supermongo example I would use &lt;code&gt;ax = fig.add_subplot(2,2,4)&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Saving plots to file&lt;/h3&gt;
+&lt;p&gt;Saving in Supermongo requires setting up a state to put the plot into. The following example from &lt;a href="http://www.astro.caltech.edu/~apeter/sm/basic.html"&gt;Annika Peter&lt;/a&gt; shows how to set up the device then save to file (the last &lt;code&gt;hardcopy&lt;/code&gt; is critical, you can also use &lt;code&gt;dev x11&lt;/code&gt; to close).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;dev postencap my_first_plot.eps
+ctype black
+set x=0.0,10.0,1.0
+set y=x**2
+lim x y
+box
+con x y
+ptype 10 3
+points x y
+xlabel x
+ylabel y
+hardcopy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Matplotlib does not require you to set anything up prior to building the items. Instead, you can just save out the state or figure with a command. The following example mimics the Supermongo example. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pylab&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;10.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;1.0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subplots&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;marker&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;o&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_xlabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;y&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;savefig&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;my_first_plot.ps&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Matplotlib is smart about it's saving methods. If you want to create a pdf not ps you just use the ".pdf" extension and it will save to that format. Many other formats are supported (e.g. png, pdf, jpg, gif, etc)&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;h1 style="font-size:40px;font-weight:bold"&gt;Could publish the programming section later&lt;/h1&gt;
+&lt;hr&gt;
+&lt;h2&gt;Programming&lt;/h2&gt;
+&lt;p&gt;Supermongo was developed to be plotting language. However, within it's syntax you can specify any programming task which makes it more or less a complete language. However, you should avoid using SuperMongo for more than plots as much as possible. Other programming languages have much better implementations allowing you to write your code faster, debug easier, and for it to run more efficiently. &lt;/p&gt;
+&lt;p&gt;For example, Python is a complete language which has good implementations of many programming concepts. It's a language not just for plotting but &lt;/p&gt;
+&lt;h3&gt;Syntax Differences&lt;/h3&gt;
+&lt;p&gt;Supermongo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;if(a == b) {
+   echo True condition for &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+} else { 
+    if(a == c) {
+        echo else if condition
+    } else {
+        echo else condition
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Python&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;True condition for &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;else if condition&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;else condition&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;table class="table"&gt;
+    &lt;thead&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Supermongo&lt;/th&gt;
+        &lt;th&gt;Python&lt;/th&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Variables&lt;/td&gt;
+            &lt;td&gt;define x 1&lt;/td&gt;
+            &lt;td&gt;x = 1&lt;/td&gt;
+        &lt;/tr&gt;    
+        &lt;tr&gt;
+            &lt;td&gt;Arrays&lt;/td&gt;
+            &lt;td&gt;set x = {1,2,3}&lt;/td&gt;
+            &lt;td&gt;x = [1,2,3]&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Array Range&lt;/td&gt;
+            &lt;td&gt;set x = 0,10,1&lt;/td&gt;
+            &lt;td&gt;x = list(range(0,10,1))&lt;/td&gt;
+        &lt;/tr&gt;        
+        &lt;tr&gt;
+            &lt;td&gt;Conditionals&lt;/td&gt;
+            &lt;td&gt;==  !=  &gt;  &lt;  &gt;=  &lt;=&lt;/td&gt;
+            &lt;td&gt;# same&lt;/td&gt;
+        &lt;/tr&gt;    
+        &lt;tr&gt;
+            &lt;td&gt;And&lt;/td&gt;
+            &lt;td&gt;a &amp;&amp; b&lt;/td&gt;
+            &lt;td&gt;a and b&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Or&lt;/td&gt;
+            &lt;td&gt;a  b&lt;/td&gt;
+            &lt;td&gt;a or b&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Not&lt;/td&gt;
+            &lt;td&gt;!a&lt;/td&gt;
+            &lt;td&gt;!a&lt;/td&gt;
+        &lt;/tr&gt;                
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2&gt;Shout Outs&lt;/h2&gt;
+&lt;p&gt;Acknowledgments go to Robert Lupton and Patricia Monger for creating &lt;a href="http://www.astro.princeton.edu/~rhl/sm/"&gt;SM&lt;/a&gt; which really was revolutionary for it's time. Special thanks to &lt;a href="http://www.astro.caltech.edu/~apeter/sm/basic.html"&gt;Annika Peter&lt;/a&gt;, &lt;a href="http://astroweb.astr.cwru.edu/craig/sm/plot_sm.html"&gt;Craig Rudick&lt;/a&gt; and &lt;a href="http://www.rebeccastanek.com/super/"&gt;Rebecca Stanek&lt;/a&gt; for their Supermongo guides. They helped me immensely when I learned Supermongo and in writing this guide.&lt;/p&gt;</content><category term="Astronomy"></category><category term="astronomy"></category><category term="plotting"></category><category term="python"></category><category term="supermongo"></category></entry><entry><title>Python 3 All the Things!</title><link href="/blog/programming/2014/10/python-3-all-the-things" rel="alternate"></link><published>2014-10-09T19:05:59-06:00</published><updated>2014-10-09T19:05:59-06:00</updated><author><name>Dylan Gregersen</name></author><id>tag:None,2014-10-09:/blog/programming/2014/10/python-3-all-the-things</id><summary type="html">&lt;p&gt;I just gave a Python3 talk to &lt;a href=""&gt;SLCPython Meetup&lt;/a&gt; Here are some links and resources to find out more about all the hype&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Yesterday gave a talk at &lt;a href="http://www.slcpy.com"&gt;SLCPython Meetup&lt;/a&gt; Group about Python3. When I agreed to give this talk I had already read through many of the pages of changes (e.g. &lt;a href="https://docs.python.org/3.0/whatsnew/3.0.html"&gt;What's new in Python 3&lt;/a&gt;) and felt like I had a pretty good understanding of the changes. The thing I didn't realize was how much I would be learning about unicode.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/astrodsg/Python2to3"&gt;Click here for Resources from my talk&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;h1&gt;&lt;strong&gt;Why Unicode is a Step Forward&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Python 2 had several implicit uses of &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;ASCII&lt;/a&gt; encoding/decoding. ASCII was the first, widely accepted system for encoding human language (i.e. English) to computer bytes. This process is necessary because humans don't express themselves well in bytes and computers don't do well with language.&lt;/p&gt;
+&lt;p&gt;Many human languages exist. Each has its own ways to express ideas. As computers have evolved and become used all around the globe the need for computers to encode/decode more than just English is paramount. The development of the &lt;a href="https://en.wikipedia.org/wiki/Unicode"&gt;Unicode&lt;/a&gt; system characters is a major step to solving this problem. The next step is for developers to implement Unicode as a foundation for computer systems. This step will make computers more accessible to people of all backgrounds and cultures.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="It's a Unicode Party (Sorry this is mostly white folk, but it's fun gif)" src="/static/img/blog/its_a_party.gif" style="width: 50%; display: inline-block;"/&gt;
+&lt;img alt="Unicode Hello World" src="/static/img/blog/hello_world_all.png" style="width: 50%; display: inline-block; float:right;"/&gt;&lt;/p&gt;
+&lt;h1&gt;&lt;strong&gt;Python Adoption of Unicode&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Unicode handling is the primary reason for the break in backwards compatibility. In the words of core developer &lt;a href="http://python-notes.curiousefficiency.org/en/latest/python3/questions_and_answers.html"&gt;Nick Coghlan&lt;/a&gt; "Fixing [Unicode handling bugs] within the constraints of the Python 2 text model is considered too hard to be worth the effort."&lt;/p&gt;
+&lt;p&gt;The new text model in Python 3 treats all text as either byte arrays (machine language) or Unicode (human language(s)) with more explicit encoding/decoding. The diagram which helped me was this:&lt;/p&gt;
+&lt;p&gt;&lt;img src="/static/img/blog/unicode_sandwich.jpg" alt="Unicode Sandwich" style="width:60%;"/&gt;&lt;/p&gt;
+&lt;p&gt;On the outside of the sandwich there's the computer and byte storage, on the inside is the Unicode which humans understand.&lt;/p&gt;
+&lt;p&gt;This new text model also allows people to write code using any Unicode character. For example, &lt;a href="https://github.com/renyuanL/pythonTurtleInChinese"&gt;these scripts&lt;/a&gt; published on github use chinese characters (pretty fracking cool).&lt;/p&gt;
+&lt;h1&gt;&lt;strong&gt;Fixing Up Loose Ends&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Since the core developers broke backwards compatibility anyway, this has been a great opportunity to fix up many of the inconsistencies and gotcha's of Python 2. These are the changes most of us will notice. Things like maing &lt;code&gt;print&lt;/code&gt; a function or the deprecation of many functions and class methods (like &lt;code&gt;raw_input&lt;/code&gt; or &lt;code&gt;dict.iterkeys&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;I found it useful to look online at several of the "what's new guides". I think &lt;a href="http://docs.pythonsprints.com/python3_porting/py-porting.html"&gt;Brian Curtin's Porting Guide&lt;/a&gt; is a nice and succinct place to start.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;img alt="Python3 Wants You" src="/static/img/blog/Python3_wants_you.png" style="margin-top:80px; margin-bottom: 30px; height: 20%;"/&gt;&lt;/p&gt;
+&lt;h1&gt;&lt;strong&gt;Now is the Time!&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Python is a powerful language mostly because of it's libraries build by the community. The fear was that these packages would have trouble converting to Python3 (maybe never do) and that would be the end of Python. However, it seams to me that fear is no longer valid. By several measures, we're now at 75% support of Python3 by major libraries. One of these measures, is the &lt;a href="http://py3readiness.org/"&gt;Python 3 Readiness&lt;/a&gt; site which looks at the top 360 &lt;code&gt;pip&lt;/code&gt; packages and the adoption of Python3.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://py3readiness.org/"&gt;
+&lt;img alt="Python3 Readiness" src="/static/img/blog/Python3_Readiness.png"/&gt;
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;With almost all major libraries now supporting Python 3, it's up to the rest of us to adopt this new language. Good luck!&lt;/p&gt;
+&lt;h1&gt;Other Online Materials&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.python.org/3.0/whatsnew/3.0.html"&gt;What's New in Python 3&lt;/a&gt; – for most of the Python 2.7 to Python 3 changes.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.python.org/3/whatsnew/"&gt;What's New&lt;/a&gt; – for a VERY long list of everything new (though check out the dense but "short" summary)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://nedbatchelder.com/text/unipain.html"&gt;Pragmatic Unicode talk/essay&lt;/a&gt; – or "Why Python 3 Exists" - Coghlan&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://docs.pythonsprints.com/python3_porting/py-porting.html"&gt;Python 3 Porting Guide&lt;/a&gt; – nice quick reference for things which have changed from 2.x to 3x&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://python3porting.com/"&gt;Porting to Python 3: An in-depth guide&lt;/a&gt; – Definitely in depth&lt;/li&gt;
-&lt;/ul&gt;
-</summary><category term="python"></category><category term="python3"></category><category term="programming"></category><category term="2to3"></category></entry></feed>
+&lt;/ul&gt;</content><category term="Programming"></category><category term="python"></category><category term="python3"></category><category term="programming"></category><category term="2to3"></category></entry></feed>

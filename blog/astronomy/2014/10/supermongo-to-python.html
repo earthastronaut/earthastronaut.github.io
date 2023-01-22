@@ -1,0 +1,714 @@
+<!-- -->
+
+<!DOCTYPE html>
+<html lang="en
+"  prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml" >
+
+  <head>
+    <title>
+Supermongo to Python
+  -
+  Dylan Gregersen
+    </title>
+
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/favicon/apple-touch-icon.png"> <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png"> <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png"> <link rel="manifest" href="/static/img/favicon/site.webmanifest"> <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#ffffff"> <meta name="msapplication-TileColor" content="#ffffff"> <meta name="theme-color" content="#ffffff"> -->
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+
+    <!-- if -->
+  <link rel="canonical" href="/blog/astronomy/2014/10/supermongo-to-python"/>
+
+    <!-- if -->
+  <!-- if -->
+
+    <meta name="author" content="Dylan Gregersen"/>
+
+  <!-- if -->
+
+    <meta name="keywords" content="astronomy,plotting,python,supermongo"/>
+
+  <!-- if -->
+
+    <meta name="description" content="A tutorial for switching from Supermongo to Python"/>
+
+    <!-- if -->
+  <!-- if -->
+
+    <meta property="og:site_name" content="Dylan Gregersen"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Supermongo to Python"/>
+    <meta property="og:url" content="/blog/astronomy/2014/10/supermongo-to-python"/>
+    <meta property="og:description" content="A tutorial for switching from Supermongo to Python"/>
+    <meta property="article:published_time" content='2014-10-25'/>
+      <meta property="article:section" content="Astronomy"/>
+      <meta property="article:tag" content="astronomy"/>
+      <meta property="article:tag" content="plotting"/>
+      <meta property="article:tag" content="python"/>
+      <meta property="article:tag" content="supermongo"/>
+      <meta property="article:author" content="Dylan Gregersen"/>
+
+    <!-- if -->
+
+    <!-- if -->
+
+    <!-- Bootstrap -->
+      <link rel="stylesheet" href="/static/css/bootstrap.journal.min.css" type="text/css"/>
+    <link href="/static/css/pygments/native.css" rel="stylesheet">
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- Typogrify -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/typogrify.css" rel="stylesheet">
+
+    <!-- -->
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+
+    <!-- -->
+      <link href="/static/css/global.css" rel="stylesheet">
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- -->
+      <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Dylan Gregersen ATOM Feed"/>
+
+    <!-- -->
+
+    <!-- -->
+
+    <!-- -->
+      <!-- -->
+        <!-- -->
+      <link href="/feeds/astronomy.atom.xml" type="application/atom+xml" rel="alternate" title="Dylan Gregersen Astronomy ATOM Feed"/>
+      <!-- -->
+  </head>
+
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          <a href="/" class="navbar-brand">
+Dylan Gregersen
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+              <li>
+                <a href="/research">Research</a>
+              </li>
+              <li>
+                <a href="/about">About</a>
+              </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+    </div>
+    <!-- /.navbar -->
+
+    <!-- Banner -->
+    <div class="container-fluid">
+    </div>
+    <!-- End Banner -->
+
+    <!-- Content Container -->
+    <div class="container-fluid">
+      <!--  -->
+  <section class="article-container">
+    <div class="col-sm-3" id="sidebar">
+<div class="thumbnail">
+  <p>
+    <em>"You are something the whole Universe is doing, the same way a wave is something the whole ocean is doing"</em>
+    ― Alan W. Watts
+  </p>
+  <img src="https://earthastronaut.s3.amazonaws.com/profile_photos/dylan_gregersen_paddling.jpg" class="img-rounded" alt="Photo">
+  <div class="caption">
+    Problem Solver, Python Programmer, Data Scientist, Mentor, Muscian, and Vegan.
+    <h4>
+      <a href="https://github.com/earthastronaut"><svg viewBox="64 64 896 896" focusable="false" data-icon="github" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0138.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"></path></svg></a>
+      <a href="https://www.linkedin.com/in/dylangregersen"><svg viewBox="64 64 896 896" focusable="false" data-icon="linkedin" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M847.7 112H176.3c-35.5 0-64.3 28.8-64.3 64.3v671.4c0 35.5 28.8 64.3 64.3 64.3h671.4c35.5 0 64.3-28.8 64.3-64.3V176.3c0-35.5-28.8-64.3-64.3-64.3zm0 736c-447.8-.1-671.7-.2-671.7-.3.1-447.8.2-671.7.3-671.7 447.8.1 671.7.2 671.7.3-.1 447.8-.2 671.7-.3 671.7zM230.6 411.9h118.7v381.8H230.6zm59.4-52.2c37.9 0 68.8-30.8 68.8-68.8a68.8 68.8 0 10-137.6 0c-.1 38 30.7 68.8 68.8 68.8zm252.3 245.1c0-49.8 9.5-98 71.2-98 60.8 0 61.7 56.9 61.7 101.2v185.7h118.6V584.3c0-102.8-22.2-181.9-142.3-181.9-57.7 0-96.4 31.7-112.3 61.7h-1.6v-52.2H423.7v381.8h118.6V604.8z"></path></svg></a>
+    </h4>
+  </div>
+</div>    </div>
+    <div class="col-sm-9" id="content">
+      <article>
+        <header class="page-header">
+          <h1>
+            <a href="/blog/astronomy/2014/10/supermongo-to-python" rel="bookmark" title="Permalink to Supermongo to Python">
+              Supermongo to Python
+            </a>
+          </h1>
+        </header>
+        <div class="entry-content">
+          <div class="panel">
+            <div class="panel-body"><!-- -->
+
+<footer class="post-info">
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-1" style="text-align:right;">
+      <strong>Date</strong>
+    </div>
+    <div class="col-sm-6">    <time datetime="2014-10-25T19:05:59-06:00">Sat 25 October 2014</time>
+</div>
+    <div class="col-sm-6"></div>
+  </div>
+
+  <!-- -->
+
+
+
+
+  <div class="row">
+    <div class="col-sm-1" style="text-align:right;">
+      <strong>Tags</strong>
+    </div>
+    <div class="col-sm-6">        <a href="/tag/astronomy.html">astronomy</a>
+          ,
+        <a href="/tag/plotting.html">plotting</a>
+          ,
+        <a href="/tag/python.html">python</a>
+          ,
+        <a href="/tag/supermongo.html">supermongo</a>
+</div>
+    <div class="col-sm-6"></div>
+  </div>
+
+  <!-- -->
+
+
+  </div>
+</footer></div>
+          </div>
+          <h2>Introduction</h2>
+<p>Supermongo (SM) is a domain-specific programming language for creating plots. It was first written in 1987. Astronomers adopted this language as a primary plotting package for data analysis. Many groundbreaking discoveries have been seen using supermongo plots. However, new tools exist for plotting which have evolved from first plotting languages like Supermongo. These new tools provide methods for creating plots with fewer lines of code. They provide better integration into other programming languages and code.</p>
+<p>Matplotlib is a domain-specific plotting library for the general-purpose programming language Python. This library provides all the plotting capabilities of Supermongo and more. This post is to provide a 1-to-1 guide for Supermongo experts to apply their knowledge in Python with Matplotlib.</p>
+<p>Other Python plotting packages include : bokeh, plotly, vispy</p>
+<!-- __TODO: outline__
+
+[General Comparison ](##General-Comparison)
+[Getting Started With Supermongo-Python](##Getting-Started-With-Supermongo-Python)
+ -->
+
+<hr>
+<h2>General Comparison</h2>
+<p><strong>Variables:</strong> In Supermongo all variables are global so wherever you change them, within any macro, they change everywhere else. In Python variables have scope. You can use the same variable name in mulitple functions and be sure that they will act independantly.</p>
+<p><strong>Plot States:</strong> In Supermongo you have a single plot state which you update with the interactive commands. Matplotlib also uses a plot state which you edit with commands.</p>
+<p><strong>Object Oriented:</strong> Supermongo is a procedural programming language. You write out all the steps and they execute in that order. Python is object oriented meaning you can create data objects and write them into procedures. This method is how your operating system is built and is extremely useful.</p>
+<p><strong>Community Support:</strong> If you've ever searched the internet for help with Supermongo (chances are you have if you're reading this) you've come across a handful of useful sites: The <a href="http://www.astro.princeton.edu/~rhl/sm/">SM manual</a>, <a href="http://www.astro.caltech.edu/~apeter/sm/basic.html">Annika Peter's Guide</a>, <a href="http://astroweb.astr.cwru.edu/craig/sm/plot_sm.html">Craig Rudick's Tutorial</a> and <a href="http://www.rebeccastanek.com/super/">Rebecca Stanek's Guide</a>. These resources and only a few others are the mainstay of the Supermongo online support. </p>
+<p>By contrast the community supporting Matplotlib is immense. Not only is it developed by many people to have lots of functionality, it also has a large user base. If you are unsure how to make some plot thing, a quick internet search often pulls up many solutions. </p>
+<!-- TODO look up main matplotlib repo -->
+
+<h2>Python requirements</h2>
+<p>Because general purpose language you'll need specific subpackages. For this tutorial:</p>
+<ul>
+<li>maplotlib</li>
+<li>numpy</li>
+</ul>
+<p>Hopefully, these packages came with your installation of Python. You can also install them using the command line utility <code>pip</code> (e.g. <code>pip install numpy</code>)
+This tutorial will work with both Python 2 and 3. </p>
+<p><br/>
+<br/>
+<br/></p>
+<hr>
+<h2>Getting Started</h2>
+<h3>Working interactively</h3>
+<p>In Supermongo all your plotting is done either interactively (you type and the plot is modified) or using a script. In Python you do the same.</p>
+<p>To use the interactive mode, on the command line type <code>python</code> (better yet try out <code>ipython</code> for more interactive fun). Now you should have a new prompt, probably with '&gt;&gt;&gt;' which you type your python code. (Check out TODO for a python tutorial)</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  
+<span class="c1"># comment</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot; String doc &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; value </span><span class="si">{}</span><span class="s2"> = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</code></pre></div>
+
+<p>Here's some comparisons of interactive mode. </p>
+<p><strong>Supermongo</strong></p>
+<div class="highlight"><pre><span></span><code>div X11            
+set x = {2,3}      
+set y = {5,10}     
+con x y            
+xlabel time        
+ylabel temperature 
+</code></pre></div>
+
+<p><strong>Python</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib.pylab</span> <span class="kn">import</span> <span class="o">*</span>    
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>                         
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>                        
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>                         
+<span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>                    
+<span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;temperature&quot;</span><span class="p">)</span>             
+<span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>NOTE:</strong> The remainder of the tutorial I don't use <code>from matplotlib.pylab import *</code> and instead use <code>import matplotlib.pylab as plt</code> then commands like <code>plt.plot</code>. The reason has to do with how many named things there are and to allow me to make my own <code>plot</code> function different from the default <code>plt.plot</code> function. Basically, it's good coding practice.</p>
+<h3>Writing Scripts</h3>
+<p>Both languages allow you to write a script to execute commands. If you're not doing this you really should. In a nut shell, you just write the lines you would type into the interactive mode into a text file and then execute that file. You will want to use <a href="https://www.gnu.org/software/emacs/">Emacs</a>, <a href="http://www.sublimetext.com/">Sublime Text</a>, <a href="http://www.barebones.com/products/textwrangler/">TextWrangler</a> or some equivalent text editor.</p>
+<p>With Supermongo you write a script with at least one macro, for example:</p>
+<p><strong>"script.sm"</strong></p>
+<div class="highlight"><pre><span></span><code>main_macro 
+    dev x11
+    ctype white
+    set x=0.0,10.0,1.0
+    set y=x**2
+    lim x y 
+    box
+    con x y
+</code></pre></div>
+
+<p>Then startup Supermongo using <code>sm</code> enter <code>macro read script.sm</code> and then <code>main_macro</code> to execute.</p>
+<p>For Python you write a script similarly </p>
+<p><strong>"script.py"</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Then you can run it with <code>python script.py</code>.
+<br/>
+<br/>
+<br/></p>
+<hr>
+<h2>Comparisons of Supermongo and Python Plotting</h2>
+<p>Plotting libraries implement functions to display views of data. One of the basic views is comparing one data parameter (say X) against another (say Y) and just plotting the intersecting points (a.k.a. a scatter plot). In this section, I make direct comparisons of Supermongo to Python plotting methods. </p>
+<h3>Adding items to plots</h3>
+<p>Both plotting packages create some plot axes which you can then add views of your data to. </p>
+<p>Both plotting packages have methods for adding XY data as lines, points, and with errorbars. Below is the side by side comparison. </p>
+<h4>Plot Lines</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code><span class="k">connect</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="nv">y</span><span class="w">  </span>
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Plot Line</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>line x1 y1 x2 y2
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">])</span>
+</code></pre></div>
+
+<h4>Plot Points</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>points x y
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>              
+<span class="c1"># or use                      </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Plot Errorbars</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>errory x y yerr
+errorx x y xerr
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">)</span>         
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">)</span>         
+<span class="n">plt</span><span class="o">.</span><span class="n">errobar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Plot Horizontal Line</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>hzline y
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Plot Vertical Line</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>vtline x
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Plot Rectangle</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>relocate x1 y1 
+draw x1 y2     
+draw x2 y2     
+draw x2 y1     
+draw x1 y1     
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">rec</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,(</span><span class="n">x2</span><span class="o">-</span><span class="n">x1</span><span class="p">),(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>                  
+</code></pre></div>
+
+<h4>Layout Axis Labels</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>toplabel title_of_plot
+xlabel label_name
+ylabel label_name
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;title_of_plot&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;label_name&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;label_name&quot;</span><span class="p">)</span>                  
+</code></pre></div>
+
+<h4>Layout Add Text</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>relocate x y    
+label label_text
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;label_text&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Layout Legends</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code># Draw Rectangle box
+relocate xpt= ypt   
+# Set ptype,ctype   
+dot                 
+relocate xpt+dx ypt 
+label Item Label    
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># just add label keyword        </span>
+<span class="c1"># to your plot call             </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Item Label&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>                    
+<span class="c1"># use help(plt.legend) to find  </span>
+<span class="c1"># out about keywords            </span>
+</code></pre></div>
+
+<p>Plot legends are a pain in Supermongo. If you want a bounding box you need to draw the rectangle yourself specifying every corner. Then you have to specify the exact positions of each label, draw a point with the correct styles at the correct location, then add the text slightly offset. If you want to add/remove
+labels or if points styles change then you're often thrown into chaos. (Of course you can write macros, but why? when Python makes it so easy!)</p>
+<p>The python <code>plt.legend</code> function looks for any plot item you added a lable=? keyword argument to. This includes all lines and points as well as patches like plt.Rectangle and plt.Circle. It's also easy to manipulate the position using the loc=? keyword of <code>plt.legend</code>.</p>
+<h3>Controlling Plot Styles</h3>
+<p>In Supermongo you must set the styles globally before adding them to the plot. This can lead to frustrating bugs if their out of order</p>
+<p>This one may or may not be red points:</p>
+<div class="highlight"><pre><span></span><code>points x y 
+ctype red
+</code></pre></div>
+
+<p>This causes the points to be red:</p>
+<div class="highlight"><pre><span></span><code>ctype red
+points x y
+</code></pre></div>
+
+<p>In Python you set the plot parameters at the same time you add the item. You do this using keywords in the function call.</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You can find out about all the keywords by typing <code>help(plt.scatter)</code> in the Python terminal or by using an internet search (the internet is your friend).
+<em>Caveat:</em> Matplotlib has an rc file that sets some global variables. You can learn more about it <a href="http://matplotlib.org/users/customizing.html">here</a>.</p>
+<p>Alright, here comes the one to one of common styles you'll want to manipulate. The Python answers I'm going to use the most common function; Note though, Matplotlib has some inconsistencies with names and so you should refer to the internet or help if you run into problems in your own implementation.</p>
+<h4>Point Color</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>ctype red 
+ctype red 
+points x y
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>      
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>      
+<span class="c1"># hex colors work           </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;#DC322F&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Point Style</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>ptype 10 3    
+ptype 10 3    
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Point Size</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>expand 1.5
+expand 1.5
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Line Color</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code><span class="nv">ctype</span><span class="w"> </span><span class="nv">red</span><span class="w">   </span>
+<span class="nv">ctype</span><span class="w"> </span><span class="nv">red</span><span class="w">   </span>
+<span class="k">connect</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span>
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>      
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>      
+<span class="c1"># hex colors work            </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#DC322F&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>Line Style</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code><span class="nv">ltype</span><span class="w"> </span><span class="mi">2</span><span class="w">    </span>
+<span class="nv">ltype</span><span class="w"> </span><span class="mi">2</span><span class="w">    </span>
+<span class="k">connect</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="nv">y</span><span class="w"></span>
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+ <span class="c1"># or the shortcut           </span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>       
+</code></pre></div>
+
+<h4>Line Width</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>lw 7
+lw 7
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>More with Matplotlib</h4>
+<p>In addition to the side by side comparison matplotlib provides you additional ways to plot your data and manipulate your figures.</p>
+<ul>
+<li><a href="http://matplotlib.org/examples/shapes_and_collections/scatter_demo.html">Scatter Points with Color and Size</a></li>
+</ul>
+<!-- * [Plot Annotations](http://matplotlib.org/examples/pylab_examples/annotation_demo2.html) -->
+<ul>
+<li><a href="http://matplotlib.org/examples/pylab_examples/fancyarrow_demo.html">Arrows</a></li>
+<li><a href="http://matplotlib.org/examples/pylab_examples/hist2d_demo.html">2D Histograms</a></li>
+<li><a href="http://matplotlib.org/examples/pylab_examples/contour_demo.html">Contours</a></li>
+<li><a href="http://matplotlib.org/examples/pylab_examples/image_interp.html">2D Images</a></li>
+<li><a href="http://matplotlib.org/examples/statistics/boxplot_demo.html">Box Plots</a></li>
+</ul>
+<!-- * [Steam Plots](http://matplotlib.org/examples/images_contours_and_fields/streamplot_demo_features.html) -->
+<!-- * [Radar Charts](http://matplotlib.org/examples/api/radar_chart.html) -->
+<ul>
+<li><a href="http://matplotlib.org/examples/mplot3d/contourf3d_demo2.html">3D Contours</a></li>
+<li><a href="http://matplotlib.org/examples/widgets/slider_demo.html">Interactive Plots</a></li>
+<li>And much more! Check out the <a href="http://matplotlib.org/gallery.html">Matplotlib Gallery</a></li>
+</ul>
+<h3>Modifying Plot Properties</h3>
+<p>In addition to add items to a plot you want to manipulate properties of the plot itself. For example, you often want to re-size the bounds of the plot.</p>
+<p>It's important to talk about the figure. In Supermongo you only ever have one figure which you can add multiple sub-plots to but usually only one. In Matplotlib you have the option to create multiple figures if you store </p>
+<h4>Figure and Plot</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>page
+box
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ax = plt.gca() for shortcut</span>
+</code></pre></div>
+
+<h4>Multipanel Plot</h4>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>page
+window 2 2 1 2
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Note:</strong> For Python, storing the plot in <code>ax</code> is not necessary but it's a best practice to use matplotlib objects. </p>
+<!-- TODO: add  -->
+
+<p><br/></p>
+<p>For multipanel plots Supermongo uses the <code>window</code> command with arguments <strong>[<em>number of columns</em>] [<em>number of rows</em>] [<em>x-index</em>] [<em>y-index</em>]</strong>. <code>window 2 2 1 2</code> indicates 2 rows 2 columns and the current plot is the bottom-right.</p>
+<p><br/></p>
+<p>In Matplotlib there are several ways to accomplish this (add_subplot,plt.subplots,gridspec). I commonly create a figure <code>fig = plt.figure()</code> and add a subplot <code>ax = fig.add_subplot(1,1,1)</code>. The arguments are <strong>[<em>number of rows</em>] [<em>number of columns</em>] [<em>current plot</em>]</strong>. The current plot number starts counting at 1 from the top-left then continues as though you were reading English from left to right, top to bottom. To get the bottom right plot from the Supermongo example I would use <code>ax = fig.add_subplot(2,2,4)</code>.</p>
+<h3>Saving plots to file</h3>
+<p>Saving in Supermongo requires setting up a state to put the plot into. The following example from <a href="http://www.astro.caltech.edu/~apeter/sm/basic.html">Annika Peter</a> shows how to set up the device then save to file (the last <code>hardcopy</code> is critical, you can also use <code>dev x11</code> to close).</p>
+<div class="highlight"><pre><span></span><code>dev postencap my_first_plot.eps
+ctype black
+set x=0.0,10.0,1.0
+set y=x**2
+lim x y
+box
+con x y
+ptype 10 3
+points x y
+xlabel x
+ylabel y
+hardcopy
+</code></pre></div>
+
+<p>Matplotlib does not require you to set anything up prior to building the items. Instead, you can just save out the state or figure with a command. The following example mimics the Supermongo example. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;my_first_plot.ps&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Note:</strong> Matplotlib is smart about it's saving methods. If you want to create a pdf not ps you just use the ".pdf" extension and it will save to that format. Many other formats are supported (e.g. png, pdf, jpg, gif, etc)</p>
+<p><br/>
+<br/>
+<br/></p>
+<h1 style="font-size:40px;font-weight:bold">Could publish the programming section later</h1>
+<hr>
+<h2>Programming</h2>
+<p>Supermongo was developed to be plotting language. However, within it's syntax you can specify any programming task which makes it more or less a complete language. However, you should avoid using SuperMongo for more than plots as much as possible. Other programming languages have much better implementations allowing you to write your code faster, debug easier, and for it to run more efficiently. </p>
+<p>For example, Python is a complete language which has good implementations of many programming concepts. It's a language not just for plotting but </p>
+<h3>Syntax Differences</h3>
+<p>Supermongo</p>
+<div class="highlight"><pre><span></span><code>if(a == b) {
+   echo True condition for <span class="cp">${</span><span class="n">a</span><span class="cp">}</span>
+} else { 
+    if(a == c) {
+        echo else if condition
+    } else {
+        echo else condition
+    }
+}
+</code></pre></div>
+
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True condition for </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="n">c</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;else if condition&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;else condition&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<table class="table">
+    <thead>
+        <th></th>
+        <th>Supermongo</th>
+        <th>Python</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Variables</td>
+            <td>define x 1</td>
+            <td>x = 1</td>
+        </tr>    
+        <tr>
+            <td>Arrays</td>
+            <td>set x = {1,2,3}</td>
+            <td>x = [1,2,3]</td>
+        </tr>
+        <tr>
+            <td>Array Range</td>
+            <td>set x = 0,10,1</td>
+            <td>x = list(range(0,10,1))</td>
+        </tr>        
+        <tr>
+            <td>Conditionals</td>
+            <td>==  !=  >  <  >=  <=</td>
+            <td># same</td>
+        </tr>    
+        <tr>
+            <td>And</td>
+            <td>a && b</td>
+            <td>a and b</td>
+        </tr>
+        <tr>
+            <td>Or</td>
+            <td>a  b</td>
+            <td>a or b</td>
+        </tr>
+        <tr>
+            <td>Not</td>
+            <td>!a</td>
+            <td>!a</td>
+        </tr>                
+    </tbody>
+</table>
+
+<h2>Shout Outs</h2>
+<p>Acknowledgments go to Robert Lupton and Patricia Monger for creating <a href="http://www.astro.princeton.edu/~rhl/sm/">SM</a> which really was revolutionary for it's time. Special thanks to <a href="http://www.astro.caltech.edu/~apeter/sm/basic.html">Annika Peter</a>, <a href="http://astroweb.astr.cwru.edu/craig/sm/plot_sm.html">Craig Rudick</a> and <a href="http://www.rebeccastanek.com/super/">Rebecca Stanek</a> for their Supermongo guides. They helped me immensely when I learned Supermongo and in writing this guide.</p>
+        </div>
+        <!-- /.entry-content -->
+<footer>
+  <hr>
+  <div class="row">
+    <div>&copy;
+      2014
+      Dylan Gregersen
+    </div>
+    <div>
+      <p>
+        <i class="fa fa-arrow-up"></i>
+        <a href="#">Back to top</a>
+      </p>
+    </div>
+  </div>
+</footer>      </article>
+    </div>
+  </section>
+
+    </div>
+
+    <!-- End Content Container -->
+
+    <!-- scripts -->
+    <div class="container-fluid">
+      <script src="/static/js/jquery.min.js"></script>
+
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="/static/js/bootstrap.min.js"></script>
+
+      <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+      <script src="/static/js/respond.min.js"></script>
+
+
+
+      <!-- include -->
+      <!-- include -->
+      <!-- include -->
+      <!-- include -->
+
+
+    </div>
+  </body>
+
+</html>
